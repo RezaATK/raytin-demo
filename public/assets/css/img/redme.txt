@@ -1,0 +1,2 @@
+included by
+http://tennis-app.ac/assets/css/ajaxupload/blueimp-gallery.min.css

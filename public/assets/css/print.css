@@ -1,0 +1,56 @@
+.hide_in_print {
+    display: none; 
+}
+
+nav#layout-navbar {
+    display: none;
+}
+
+footer.content-footer,.top_content,div#template-customizer {
+    display: none;
+}
+
+div#letter_permit .letter_permit_content > * {
+    font-size: 22px!important;
+    font-family:"primary-font", "segoe ui", "tahoma";
+}
+
+#letter_permit {
+    width: 100%;
+	height: 100%;
+	line-height: 35px;
+	margin: 0px!important;
+
+}
+#letter_permit.tavoni {
+top: -40px;
+padding: 50px 30px 80px 30px!important;
+}
+
+div#letter_permit .titr {
+	font-size: 24px!important;
+	font-weight: 600!important;
+    font-family: "titr", "b titr", "primary-font", "segoe ui", "tahoma"!important;
+}
+
+
+div#letter_permit .end_letter{
+    visibility: visible;
+}
+
+div#letter_permit .taeed {
+    height: 180px;
+
+}
+
+div#letter_permit .emza img {
+    position: absolute;
+    width: 289px;
+    top: -74px;
+    left: 128px;
+}
+
+div#letter_permit img.logo_oxin_l {
+    width: 140px;
+    position: absolute;
+}
