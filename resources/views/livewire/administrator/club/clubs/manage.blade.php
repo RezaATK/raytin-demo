@@ -1,9 +1,10 @@
 <div class="container">
     <div class="card mt-4">
         <div class="card-header heading-color flex-column">
-            <div class="row d-flex align-items-between mt-3">
-                <div class="col-sm-12 col-md-6 d-flex">
-                    <div class="mx-2">
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <div class="col-sm-12 col-md-6 d-flex">
+                        <div class="mx-2">
                         <a class="btn btn-primary" href="{{ route('club.create') }}">
                             <span><i class="bx bx-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">ایجاد
                                     باشگاه</span></span>
@@ -23,6 +24,7 @@
                                    id="search">
                         </div>
                     </form>
+                </div>
                 </div>
             </div>
             <x-administrator.offline/>
@@ -52,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-md-2 d-flex justify-content-center justify-content-md-end">
+                    <div class="col-sm-4 col-md-2 d-flex justify-content-end justify-content-md-end">
                         <div class="mb-2">
                             <label for="pageSize"></label>
                             <select wire:model.live="pageSize" class="form-select" id="pageSize">

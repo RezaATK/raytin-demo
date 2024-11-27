@@ -52,7 +52,7 @@
                                     <p>مهلت رزرو ماه جاری به اتمام رسیده است</p>
                                     <button class="btn btn-primary" type="submit" name="currentMonthSubmit" disabled>ثبت رزرو</button>
                                 @endif
-                                @if (!is_null($foodListForCurrentMonth) &&  !empty($allowedDaysListForCurrentToReserve))
+                                @if ((!is_null($foodListForCurrentMonth) && !empty($foodListForCurrentMonth)) && !empty($allowedDaysListForCurrentToReserve))
                                     @for($i =0; $i < count($allowedDaysListForCurrentToReserve); $i++)
                                         <div class="col-md-6 mb-1">
                                             <input  size="38" class="form-control mb-1" value="{{ verta($allowedDaysListForCurrentToReserve[$i])->format('l j F Y') }}" disabled>
@@ -71,7 +71,7 @@
                                     @endfor
                                     <button class="btn btn-primary" type="submit" name="currentMonthSubmit">ثبت رزرو</button>
                                 @endif
-                                @if (is_null($foodListForCurrentMonth) && $allowedDaysListForCurrentToReserve)
+                                @if ((is_null($foodListForCurrentMonth) || empty($foodListForCurrentMonth) ) && $allowedDaysListForCurrentToReserve)
                                         @for ($i = 0; $i < count($allowedDaysListForCurrentToReserve); $i++)
                                             <div class="col-md-6 mb-1">
                                                 <input size="38" class="form-control mb-1" value="{{ verta($allowedDaysListForCurrentToReserve[$i])->format('l j F Y') }}" disabled>
