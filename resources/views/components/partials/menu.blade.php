@@ -180,7 +180,7 @@
             ])>
             <a href="#" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dumbbell"></i>
-                <div>تعاونی مصرف</div>
+                <div>خدمات رفاهی</div>
             </a>
 
             <ul class="menu-sub">
@@ -220,7 +220,7 @@
                             'active' => isActiveRoute(['store.alldiscounts']),
                         ])>
                         <a href="{{ route('store.alldiscounts') }}" class="menu-link">
-                            <div>متصدی تعاونی</div>
+                            <div>متصدی رفاهی</div>
                         </a>
                     </li>
                     @endcan
@@ -240,7 +240,7 @@
                             'active' => isActiveRoute(['store.index', 'store.show', 'store.discountinfo', 'store.discount.create']),
                         ])>
                         <a href="{{ route('store.index') }}" class="menu-link">
-                            <div>درخواست تعاونی مصرف</div>
+                            <div>درخواست خدمات رفاهی</div>
                         </a>
                     </li>
                     @endcan

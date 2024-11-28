@@ -40,7 +40,7 @@
 
         <ul id="filterItems" class="grid row mb-5 p-0" style="direction: ltr;">
             @if($allActiveClubs->isEmpty())
-                هیچ دسته بندی در سامانه وجود ندارد  
+                هیچ باشگاهی در سامانه وجود ندارد  
             @else
                 @foreach($allActiveClubs as $club)
                 <li class="col-6 col-md-6 col-lg-3 mb-3 grid-item {{ str_replace(" ", "_" ,$club->category->categoryName) }}" data-id="id-{{ $club->clubID }}" data-type="{{ str_replace(" ", "_" ,$club->category->categoryName) }}">

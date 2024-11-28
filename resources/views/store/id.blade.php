@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 breadcrumb-wrapper mb-4">
-            <span class="text-muted fw-light">تعاونی مصرف / </span>درخواست تعاونی مصرف</h4>
+            <span class="text-muted fw-light">خدمات رفاهی / </span>درخواست خدمات رفاهی</h4>
         <br>
         <div class="row">
             <div class="col-md">

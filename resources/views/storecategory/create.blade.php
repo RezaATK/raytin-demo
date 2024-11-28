@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 breadcrumb-wrapper mb-4">
-            <span class="text-muted fw-light">خرید اعتباری / دسته بندی فروشگاه / </span>افزودن
+            <span class="text-muted fw-light">خدمات رفاهی / دسته بندی فروشگاه / </span>افزودن
         </h4>
         <div class="row">
             <div class="col-6">

@@ -1,4 +1,7 @@
 <div class="container">
+    <h4 class="breadcrumb-wrapper">
+        <span class="text-muted fw-light">رستوران / </span>مدیریت غذاها
+    </h4>
     <div class="card mt-4">
         <div class="card-header heading-color flex-column">
             <div class="row">
@@ -7,7 +10,7 @@
                         <div class="mx-2">
                             <a class="btn btn-primary" href="{{ route('food.create') }}">
                                 <span><i class="bx bx-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">ایجاد
-                                        باشگاه</span></span>
+                                        غذا</span></span>
                             </a>
                         </div>
                         <div class="mx-2">

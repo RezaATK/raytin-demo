@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 breadcrumb-wrapper">
-            <span class="text-muted fw-light">تعاونی مصرف / </span>لیست فروشگاه ها
+            <span class="text-muted fw-light">خدمات رفاهی / </span>لیست فروشگاه ها
         </h4>
 
         <fieldset>
@@ -40,7 +40,7 @@
 
         <ul id="filterItems" class="grid row mb-5 p-0" style="direction: ltr;">
             @if($allActiveStores->isEmpty())
-                هیچ دسته بندی در سامانه وجود ندارد  
+                هیچ فروشگاهی در سامانه وجود ندارد  
             @else
                 @foreach($allActiveStores as $store)
                 <li class="col-6 col-md-6 col-lg-3 mb-3 grid-item {{ str_replace(" ", "_" ,$store->category->categoryName) }}" data-id="id-{{ $store->storeID }}" data-type="{{ str_replace(" ", "_" ,$store->category->categoryName) }}">

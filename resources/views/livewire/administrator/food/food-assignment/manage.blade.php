@@ -1,17 +1,14 @@
 <div class="container">
+    <h4 class="breadcrumb-wrapper">
+        <span class="text-muted fw-light">رستوران /</span> تخصیص غذا به ماهها
+    </h4>
     <div class="card mt-4">
         <div class="card-header heading-color flex-column">
             <div class="row">
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-12 col-md-6 d-flex">
                         <div class="mx-2">
-                            <a class="btn btn-primary" href="{{ route('clubcategory.create') }}">
-                                <span><i class="bx bx-plus me-sm-1"></i>
-                                    <span class="d-none d-sm-inline-block">
-                                        ایجاد دسته بندی
-                                    </span>
-                                </span>
-                            </a>
+                            
                         </div>
                         <div class="mx-2">
                             <x-administrator.export-excel />
