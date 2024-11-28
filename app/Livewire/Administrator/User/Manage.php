@@ -78,7 +78,8 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+        return (new UsersExport())->whereIn($this->ids)->download("users-" . verta()->formatDate() . ".xlsx");
+        // return (new UsersExport())->whereIn($this->ids)->queue("users-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

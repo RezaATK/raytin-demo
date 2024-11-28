@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Club\Clubs;
 
+use App\Exports\ClubsExport;
 use App\Exports\UsersExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Club\Club;
@@ -82,7 +83,7 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+        return (new ClubsExport())->whereIn($this->ids)->download("Clubs-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

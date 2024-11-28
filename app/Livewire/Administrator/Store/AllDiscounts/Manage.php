@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Store\AllDiscounts;
 
+use App\Exports\StoresAllDiscountsExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Club\ClubReservations;
 use App\Models\Store\StoreDiscount;
@@ -69,21 +70,9 @@ class Manage extends BaseTableClass
     {
     }
 
-
-
-//    public function approve(int $id): void
-//    {
-//        StoreDiscount::query()->findOrFail($id)->update([
-//            'verification_one' => 'verified',
-//            'current_verification_state' => 'waiting_two',
-//            'verification_two' => 'waiting',
-//        ]);
-//    }
-
-
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new StoresAllDiscountsExport())->whereIn($this->ids)->download("StoresAllDiscounts-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

@@ -192,8 +192,8 @@ abstract class BaseTableClass extends Component
     }
 
 
-    // public function placeholder(){
-    //     return  view('livewire.loading');
-    // }
+    public function placeholder(){
+        return  view('livewire.loading');
+    }
 
 }

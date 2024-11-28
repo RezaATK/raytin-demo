@@ -27,7 +27,6 @@
     </td>
     <td x-show="letter" x-transition x-cloak>
         @if ($clubReservations->verification == 'verified')
-            {{--                                        <a type="button" class="btn btn-primary" href="/clubs/letter/{{ $clubReservations->trackingCode }}" >مشاهده معرفی نامه</a>--}}
             <a type="button" class="btn btn-primary" href="{{ route('club.letter', ['clubReservations' => $clubReservations->trackingCode ]) }}" target="_blank">مشاهده معرفی نامه</a>
         @else
             بدون داده

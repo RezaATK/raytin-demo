@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Administrator\StoreCategory;
 
+use App\Exports\StoreCategoriesExport;
+use App\Exports\StoreCategorysExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Store\StoreCategory;
 use Illuminate\Contracts\View\View;
@@ -71,7 +73,10 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new StoreCategorysExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new StoreCategoriesExport())
+                ->whereIn($this->ids)
+                ->download("StoreCategories-" . verta()->formatDate() . ".xlsx");
+
     }
 
     #[Computed]

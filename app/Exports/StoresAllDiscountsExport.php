@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class StoresAllDiscountsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -31,23 +31,26 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
 
     public function query()
     {
-        return DB::table('users')
+        return DB::table('store_discounts')
             ->select(
-                'userID',
-                'employeeID',
-                'name',
-                'lastName',
-                'gender',
-                'nationalCode',
-                'mobileNumber',
+                'store_discounts.discountID as discountID',
+                'users.employeeID as employeeID',
+                'users.name as UserName',
+                'users.lastName as UserLastName',
+                'users.nationalCode as UserNationalCode',
+                'users.mobileNumber as UserMobileNumber',
+                'employment_types.employmentTypeName as UserEmploymentTypeName',
                 'units.unitName as unitName',
-                'employment_types.employmentTypeName as employment_types_name',
-            )
-            ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
+                'store_discounts.storeName as storeName',
+                'store_discounts.trackingCode as trackingCode',
+                'store_discounts.discountDate as discountDate',
+                'store_discounts.verification_one as verification_one')
+            ->join('users', 'store_discounts.userID', '=', 'users.userID')
             ->join('units', 'users.unitID', '=', 'units.unitID')
-            ->orderBy('userID')
+            ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
+            ->orderBy('discountID')
             ->when($this->ids, function ($query) {
-                $query->whereIn('userID', $this->ids);
+                $query->whereIn('discountID', $this->ids);
             });
     }
 
@@ -58,26 +61,32 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
             'کد پرسنلی',
             'نام',
             'نام خانوادگی',
-            'جنسیت',
             'کد ملی',
             'موبایل',
-            'واحد',
             'نوع استخدام',
+            'واحد',
+            'نام فروشگاه',
+            'کد رهگیری',
+            'برای تاریخ',
+            'وضعیت',
         ];
     }
 
     public function map($row): array
     {
         return [
-            $row->userID,
+            $row->discountID,
             $row->employeeID,
-            $row->name,
-            $row->lastName,
-            $row->gender === 'male' ? 'مذکر' : 'مونث',
-            $row->nationalCode,
-            $row->mobileNumber,
+            $row->UserName,
+            $row->UserLastName,
+            $row->UserNationalCode,
+            $row->UserMobileNumber,
+            $row->UserEmploymentTypeName,
             $row->unitName,
-            $row->employment_types_name,
+            $row->storeName,
+            $row->trackingCode,
+            verta($row->discountDate)->format('F Y'),
+            $this->verficationStatus($row->verification_one),
         ];
     }
 
@@ -106,6 +115,17 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
                 $event->sheet->getDelegate()->getStyle('A:B')->getAlignment()->setHorizontal('right');
             },
         ];
+    }
+
+    public function verficationStatus(string $status): string
+    {
+        if($status === 'waiting'){
+            return 'در انتظار تایید';
+        }else if($status === 'verified'){
+            return 'تایید شده';
+        }else{
+            return 'رد شده';
+        }
     }
 
 }

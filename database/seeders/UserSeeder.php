@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'employeeID' => 600,
             'unitID' => 2,
             'employmentTypeID' => 2,
-            'birthday' => '2024-10-10',
+            'birthday' => '1993-10-10',
             'gender' => 'male',
             'isActive' => 1,
             'role_id' => 0,

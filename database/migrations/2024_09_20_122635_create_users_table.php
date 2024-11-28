@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nationalCode');
             $table->string('password')->nullable();
             $table->unsignedBigInteger('unitID');
-            $table->foreign('unitID')->references('unitID')->on('units')->ondelete('cascade');
+            $table->foreign('unitID')->references('unitID')->on('units')->noActionOnDelete();
             $table->unsignedBigInteger('employmentTypeID');
             $table->foreign('employmentTypeID')->references('employmentTypeID')->on('employment_types')->ondelete('cascade');
             $table->date('birthday');
