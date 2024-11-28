@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('employment_types', function (Blueprint $table) {
             $table->id('employmentTypeID');
             $table->string('employmentTypeName');
             $table->timestamps();
+            // $table->softDeletes();
         });
     }
 

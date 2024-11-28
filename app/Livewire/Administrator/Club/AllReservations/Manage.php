@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Club\AllReservations;
 
+use App\Exports\ClubsAllReservationsExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Club\ClubReservations;
 use App\Policies\Club\ClubReservationPolicy;
@@ -87,7 +88,7 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new ClubsAllReservationsExport())->whereIn($this->ids)->download("ClubsAllReservations-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

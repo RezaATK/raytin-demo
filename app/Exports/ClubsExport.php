@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class ClubsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -31,23 +31,21 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
 
     public function query()
     {
-        return DB::table('users')
+        return DB::table('clubs')
             ->select(
-                'userID',
-                'employeeID',
-                'name',
-                'lastName',
-                'gender',
-                'nationalCode',
-                'mobileNumber',
-                'units.unitName as unitName',
-                'employment_types.employmentTypeName as employment_types_name',
+                'clubs.clubID as clubID',
+                'clubs.clubName as clubName',
+                'clubs.clubDetails as clubDetails',
+                'clubs.clubAddress as clubAddress',
+                'clubs.clubNeighborhood as clubNeighborhood',
+                'clubs.genderSpecific as genderSpecific',
+                'clubcategory.CategoryName as CategoryName',
+                'clubs.isActive as isActive',
             )
-            ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
-            ->join('units', 'users.unitID', '=', 'units.unitID')
-            ->orderBy('userID')
+            ->join('clubcategory', 'clubs.clubCategoryID', '=', 'clubcategory.clubCategoryID')
+            ->orderBy('clubID')
             ->when($this->ids, function ($query) {
-                $query->whereIn('userID', $this->ids);
+                $query->whereIn('clubID', $this->ids);
             });
     }
 
@@ -55,29 +53,27 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
     {
         return [
             '#',
-            'کد پرسنلی',
-            'نام',
-            'نام خانوادگی',
-            'جنسیت',
-            'کد ملی',
-            'موبایل',
-            'واحد',
-            'نوع استخدام',
+            'نام باشگاه',
+            'توضیحات',
+            'آدرس',
+            'محله',
+            'ویژه',
+            'دسته بندی',
+            'وضعیت',
         ];
     }
 
     public function map($row): array
     {
         return [
-            $row->userID,
-            $row->employeeID,
-            $row->name,
-            $row->lastName,
-            $row->gender === 'male' ? 'مذکر' : 'مونث',
-            $row->nationalCode,
-            $row->mobileNumber,
-            $row->unitName,
-            $row->employment_types_name,
+            $row->clubID,
+            $row->clubName,
+            $row->clubDetails,
+            $row->clubAddress,
+            $row->clubNeighborhood,
+            $row->genderSpecific,
+            $row->CategoryName,
+            $row->isActive === 1 ? 'فعال' : 'غیرفعال',
         ];
     }
 

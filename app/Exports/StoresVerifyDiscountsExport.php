@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class StoresVerifyDiscountsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -31,23 +31,30 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
 
     public function query()
     {
-        return DB::table('users')
+        return DB::table('store_discounts')
             ->select(
-                'userID',
-                'employeeID',
-                'name',
-                'lastName',
-                'gender',
-                'nationalCode',
-                'mobileNumber',
+                'store_discounts.discountID as discountID',
+                'users.employeeID as employeeID',
+                'users.name as UserName',
+                'users.lastName as UserLastName',
+                'users.nationalCode as UserNationalCode',
+                'users.mobileNumber as UserMobileNumber',
                 'units.unitName as unitName',
-                'employment_types.employmentTypeName as employment_types_name',
+                'employment_types.employmentTypeName as UserEmploymentTypeName',
+                'stores.storeName as storeName',
+                'store_discounts.discountDate as discountDate',
+                'store_discounts.additionalNote as additionalNote',
+                'store_discounts.trackingCode as trackingCode',
+                'store_discounts.verification_two as verification_two',
             )
-            ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
+            ->join('users', 'store_discounts.userID', '=', 'users.userID')
             ->join('units', 'users.unitID', '=', 'units.unitID')
-            ->orderBy('userID')
+            ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
+            ->join('stores', 'store_discounts.storeID', '=', 'stores.storeID')
+            ->where('store_discounts.verification_one', '=', 'verified')
+            ->orderBy('discountID')
             ->when($this->ids, function ($query) {
-                $query->whereIn('userID', $this->ids);
+                $query->whereIn('discountID', $this->ids);
             });
     }
 
@@ -58,26 +65,34 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
             'کد پرسنلی',
             'نام',
             'نام خانوادگی',
-            'جنسیت',
             'کد ملی',
             'موبایل',
             'واحد',
             'نوع استخدام',
+            'نام فروشگاه',
+            'برای تاریخ',
+            'ملاحظات',
+            'کد رهگیری',
+            'وضعیت',
         ];
     }
 
     public function map($row): array
     {
         return [
-            $row->userID,
+            $row->discountID,
             $row->employeeID,
-            $row->name,
-            $row->lastName,
-            $row->gender === 'male' ? 'مذکر' : 'مونث',
-            $row->nationalCode,
-            $row->mobileNumber,
+            $row->UserName,
+            $row->UserLastName,
+            $row->UserNationalCode,
+            $row->UserMobileNumber,
             $row->unitName,
-            $row->employment_types_name,
+            $row->UserEmploymentTypeName,
+            $row->storeName,
+            verta($row->discountDate)->format('F Y'),
+            $row->additionalNote,
+            $row->trackingCode,
+            $this->verficationStatus($row->verification_two),
         ];
     }
 
@@ -106,6 +121,17 @@ class UsersExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
                 $event->sheet->getDelegate()->getStyle('A:B')->getAlignment()->setHorizontal('right');
             },
         ];
+    }
+
+    public function verficationStatus(string $status): string
+    {
+        if($status === 'waiting'){
+            return 'در انتظار تایید';
+        }else if($status === 'verified'){
+            return 'تایید شده';
+        }else{
+            return 'رد شده';
+        }
     }
 
 }

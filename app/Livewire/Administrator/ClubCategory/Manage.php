@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\ClubCategory;
 
+use App\Exports\ClubCategoriesExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Club\ClubCategory;
 use App\Policies\Club\ClubPolicy;
@@ -74,7 +75,9 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new ClubCategorysExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new ClubCategoriesExport())
+            ->whereIn($this->ids)
+            ->download("ClubCategories-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

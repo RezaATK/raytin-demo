@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Store\VerifyDiscounts;
 
+use App\Exports\StoresVerifyDiscountsExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Store\StoreDiscount;
 use App\Policies\Store\StoreDiscountPolicy;
@@ -68,7 +69,7 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new StoresVerifyDiscountsExport())->whereIn($this->ids)->download("StoresVerifyDiscounts-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

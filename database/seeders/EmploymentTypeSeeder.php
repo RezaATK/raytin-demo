@@ -16,6 +16,7 @@ class EmploymentTypeSeeder extends Seeder
             'اکسین صنعت یاران جنوب 1',
             'اکسین صنعت یاران جنوب 2',
             'نامشخص',
+            'test',
             ];
 
 
