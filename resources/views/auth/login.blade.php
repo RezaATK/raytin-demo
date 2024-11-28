@@ -143,7 +143,7 @@ use app\helpers\Validator;
 
 
                 <div class="tab-pane fade <?= $profile_active_show ?? '' ?>" id="navs-top-profile" role="tabpanel">
-                  <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
+                  <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login_password') }}">
                     @csrf
                   <div class="mb-3 form-mobile-toggle">
                       <label for="mobileNumber" class="form-label">شماره موبایل</label>

@@ -29,13 +29,19 @@ class ClubRequest extends FormRequest
             'clubCategoryID' => ['required', Rule::in(ClubCategory::pluck('clubCategoryID')->toArray())],
             'clubName' => ['required', 'max:255', Rule::unique(Club::class, 'clubName')->ignore($this->route('club'))],
             'clubDetails' => ['required', 'max:255'],
-//            'clubImage' => ['nullable', 'max:255'],
+            'file' => ['nullable', 'image', 'max:2048', "mimes:jpg,jpeg", "extensions:jpg,jpeg"],
             'clubAddress' => ['nullable', 'max:255'],
             'clubNeighborhood' => ['nullable', 'max:255'],
             'genderSpecific' => ['required', 'max:255', Rule::in($genders)],
         ];
     }
-
+    
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'isActive' => $this->has('isActive') ? 1 : 0,
+        ]);
+    }
 
     public function attributes(): array
     {
@@ -43,7 +49,7 @@ class ClubRequest extends FormRequest
             'clubCategoryID' => 'دسته بندی',
             'clubName' => 'نام باشگاه',
             'clubDetails' => 'توضیحات باشگاه',
-//            'clubImage' => 'عکس باشگاه',
+            'file' => 'عکس باشگاه',
             'clubAddress' => 'آدرس باشگاه',
             'clubNeighborhood' => 'محله باشگاه',
             'genderSpecific' => 'جنسیت',

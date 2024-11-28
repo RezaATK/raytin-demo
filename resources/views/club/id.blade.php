@@ -78,8 +78,9 @@
                               method="POST">
                             @csrf
                             @if($isUserAllowedToReservNextMonth)
+                                @php $buttonDisabled = '1' @endphp
                                 @for($i=0; $i<count($familyCleanList); $i++)
-                                    @php $buttonDisabled = $familyCleanList[$i]['hasNextActiveReserv'] === true ? 'disabled' : ''; @endphp
+                                    @php $buttonDisabled = $familyCleanList[$i]['hasNextActiveReserv'] === true ? 'disabled' : '2'; @endphp
                                     <div class="form-check">
                                         <input name="nextMonthReserve" class="form-check-input" type="radio"
                                                value="{{  $familyCleanList[$i]['familyMemberNationalCode'] }}"

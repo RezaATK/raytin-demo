@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('club.store') }}" method="POST">
+                        <form action="{{ route('club.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3 mt-3">
                                 <label for="clubName" class="form-label">نام باشکاه</label>
@@ -25,19 +25,11 @@
 
                             </div>
                             <div class="mb-3">
-                                <label for="clubImage" class="form-label">عکس باشگاه</label>
-                                <input type="text" class="form-control"
-                                       value="{{ old('clubImage') }}" name="clubImage">
-                                        <x-show-error field="clubImage"/>
-
-                            </div>
-                            <div class="mb-3">
                                 <label for="clubAddress" class="form-label">آدرس باشگاه</label>
                                 <input type="text"
                                        class="form-control"
                                        value="{{ old('clubAddress') }}" name="clubAddress">
-                                        <x-show-error field="clubAddress"/>
-
+                                <x-show-error field="clubAddress"/>
                             </div>
                             <div class="mb-3">
                                 <label for="clubNeighborhood" class="form-label">محله باشگاه</label>
@@ -47,6 +39,18 @@
                                        name="clubNeighborhood">
                                 <x-show-error field="clubNeighborhood"/>
 
+                            </div>
+                            <div class="mb-3">
+                                <label for="file" class="form-label">عکس باشگاه</label>
+                                <br>
+                                <label class="form-label">فرمت های مجاز : jpg - jpeg</label>
+                                <label class="form-label">و حداکثر حجم فایل : 2 مگابایت </label>
+                                <input class="form-control mb-2" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
+                                <x-show-error field="file"/>
+                                <a href="{{ old('file') ? asset(old('file')) : asset('/uploads/no-image.jpg') }}" target=”_blank” id="image">
+                                    <img src="{{ old('file') ? asset(old('file')) : asset('/uploads/no-image.jpg') }}" class="rounded" alt="عکس فروشگاه" height="100" width="100"
+                                    id="img">
+                                </a>
                             </div>
                             <div class="mb-3"> جنسیت:
                                 <div class="form-check form-check-inline mt-3">
@@ -86,4 +90,12 @@
             </div>
         </div>
     </div>
+    <script>
+        let img = document.querySelector('#img');
+        let fileInput = document.querySelector('#file');
+        fileInput.addEventListener('change', () => {
+            const [file] = fileInput.files
+            if (file) img.src = URL.createObjectURL(file);
+        })
+    </script>
 </x-layout>

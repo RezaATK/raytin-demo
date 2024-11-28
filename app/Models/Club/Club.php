@@ -13,7 +13,16 @@ class Club extends Model
     protected $table = 'clubs';
     protected $primaryKey = 'clubID';
 
-    protected $guarded = [];
+    protected $fillable = [
+                'clubCategoryID',
+                'clubName',
+                'clubDetails',
+                'clubImage',
+                'clubAddress',
+                'clubNeighborhood',
+                'genderSpecific',
+                'isActive',
+    ];
 
 
     public function category()

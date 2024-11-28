@@ -16,8 +16,8 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <a target="_blank" href="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/stores/no-image.jpg') }}">
-                                <img class="card-img card-img-right rounded" src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/stores/no-image.jpg') }}" alt="{{ $store->storeID }}" width="270" height="245"></a>
+                            <a target="_blank" href="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/no-image.jpg') }}">
+                                <img class="card-img card-img-right rounded" src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/no-image.jpg') }}" alt="{{ $store->storeID }}" width="270" height="245"></a>
                         </div>
                     </div>
                 </div>

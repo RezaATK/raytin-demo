@@ -112,10 +112,8 @@ class ClubReservationService
     {
         for ($i = 0; $i < count($wholeUserFamilyData); $i++)
         {
-            $date = explode('-', $wholeUserFamilyData[$i]['familyMemberBirthday']);
-            $Born = Carbon::create($date[0], $date[1],$date[2]);
-            $Age = $Born->diff(Carbon::now())->y;
-            if($Age < $ageLimit){
+            $ageOfPerson = Carbon::Parse($wholeUserFamilyData[$i]['familyMemberBirthday'])->age;
+            if($ageOfPerson < $ageLimit){
                 unset($wholeUserFamilyData[$i]);
             }
         }

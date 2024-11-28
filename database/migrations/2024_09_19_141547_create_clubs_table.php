@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreign('clubCategoryID')->references('clubCategoryID')->on('clubcategory')->cascadeOnDelete();
             $table->string('clubName');
             $table->string('clubDetails');
-            $table->string('clubImage')->default('');
+            $table->string('clubImage')->default('')->nullable();
             $table->string('clubAddress')->nullable();
             $table->string('clubNeighborhood')->nullable();
             $table->string('genderSpecific')->nullable();
-            $table->integer('isActive');
+            $table->integer('isActive')->default(1);
             $table->timestamps();
         });
     }

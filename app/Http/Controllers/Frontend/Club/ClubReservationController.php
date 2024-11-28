@@ -33,12 +33,11 @@ class ClubReservationController extends Controller
         Gate::authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
 
         $familyCleanList = (new ClubReservationService())->checkUserReservations(auth()->user()->userID);
-
         if(isset($familyCleanList[0]['isUserAllowedToReservCurrentMonth']) && ! $familyCleanList[0]['isUserAllowedToReservCurrentMonth']){
             $isUserAllowedToReservCurrentMonth = false;
         }
 
-        if(isset($familyCleanList[0]['isUserAllowedToReservCurrentMonth']) && ! $familyCleanList[0]['isUserAllowedToReservCurrentMonth']){
+        if(isset($familyCleanList[0]['isUserAllowedToReservNextMonth']) && ! $familyCleanList[0]['isUserAllowedToReservNextMonth']){
             $isUserAllowedToReservNextMonth = false;
         }
 
@@ -73,7 +72,7 @@ class ClubReservationController extends Controller
             }
             $reserveDate = jalaliToGregorian(verta()->now()->startMonth()->formatDate());
         }else{
-            $selectedUserNationalCode = $request->currentMonthReserve;
+            $selectedUserNationalCode = $request->nextMonthReserve;
             foreach($familyCleanList as $familyMember){
                 if($familyMember['familyMemberNationalCode'] === $selectedUserNationalCode){
                     $chosenUserFamilyIndex = $familyMember;

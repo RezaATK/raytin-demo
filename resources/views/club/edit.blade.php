@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('club.update', ['club' => $club]) }}" method="POST">
+                        <form action="{{ route('club.update', ['club' => $club]) }}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <div class="mb-3 mt-3">
@@ -23,13 +23,6 @@
                                 <input type="text" class="form-control"
                                        value="{{ $club->clubDetails }}" name="clubDetails">
                                 <x-show-error field="clubDetails"/>
-
-                            </div>
-                            <div class="mb-3">
-                                <label for="clubImage" class="form-label">عکس باشگاه</label>
-                                <input type="text" class="form-control"
-                                       value="{{ $club->clubImage }}" name="clubImage">
-                                <x-show-error field="clubImage"/>
 
                             </div>
                             <div class="mb-3">
@@ -48,6 +41,26 @@
                                        name="clubNeighborhood">
                                 <x-show-error field="clubNeighborhood"/>
 
+                            </div>
+                            <div class="mb-3">
+                                <label for="file" class="form-label">عکس باشگاه</label>
+                                <br>
+                                <label class="form-label">فرمت های مجاز : jpg - jpeg</label>
+                                <label class="form-label">و حداکثر حجم فایل : 2 مگابایت </label>
+                                <input class="form-control mb-2" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
+                                <x-show-error field="file"/>
+
+                                <a href="{{ $club->clubImage ? asset($club->clubImage) : asset('/uploads/no-image.jpg') }}" target=”_blank” id="image">
+                                    <img src="{{ $club->clubImage ? asset($club->clubImage) : asset('/uploads/no-image.jpg') }}" class="rounded" alt="عکس باشگاه" height="100" width="100"
+                                    id="img">
+                                </a>
+                                @if($club->clubImage)
+                                    <button id="deleteImage" class="btn btn-sm btn-danger mx-4">
+                                        حذف تصویر
+                                    </button>
+                                    <div id="deleteSuccess" class="text-success"></div>
+                                    <div id="deleteFailed" class="text-danger"></div>
+                                @endif
                             </div>
                             <div class="mb-3"> جنسیت:
                                 <div class="form-check form-check-inline mt-3">
@@ -79,7 +92,7 @@
                                 <x-show-error field="clubCategoryID"/>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">افزودن</button>
+                            <button type="submit" class="btn btn-primary">ویرایش</button>
                             <a href="{{ route('club.manage') }}" type="button" class="btn btn-primary">بازگشت</a>
                         </form>
                     </div>
@@ -87,4 +100,48 @@
             </div>
         </div>
     </div>
+    <script>
+
+        let img = document.querySelector('#img');
+        let fileInput = document.querySelector('#file');
+        fileInput.addEventListener('change', () => {
+            const [file] = fileInput.files
+            if (file) img.src = URL.createObjectURL(file);
+        })
+
+        let deleteImage = document.querySelector('#deleteImage');
+        deleteImage.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch("{{ route('club.deleteImage', ['club' => $club]) }}", {
+                method: "post",
+                headers: {
+                 "accept": "application/json",
+                 "X-CSRF-Token" : "{{ csrf_token() }}"
+                }
+            }).then(res => {
+                if (!res.ok) {
+                    throw new Error('fatal Error')
+                }
+                return res.json()
+            })
+                .then(data => {
+                    if(data.message === "success"){
+                        document.querySelector('#image').setAttribute('href', '/uploads/no-image.jpg');
+                        img.setAttribute('src', '/uploads/no-image.jpg');
+                        img.setAttribute('src', '/uploads/no-image.jpg');
+                        document.querySelector('#deleteSuccess').innerHTML = 'تصویر با موفقیت حذف شد'
+                        document.querySelector('#deleteImage').remove();
+                        setTimeout(() => {
+                            document.querySelector('#deleteSuccess').innerHTML = ""
+                        }, 4000);
+                    }else{
+                        document.querySelector('#deleteFailed').innerHTML = 'خظا در حذف تصویر'
+                        setTimeout(() => {
+                            document.querySelector('#deleteFailed').innerHTML = ""
+                        }, 4000);
+                    }
+                })
+                .catch(err => console.log(err))
+        })
+    </script>
 </x-layout>

@@ -38,8 +38,12 @@
                                     <br>
                                     <label class="form-label">فرمت های مجاز : jpg - jpeg</label>
                                     <label class="form-label">و حداکثر حجم فایل : 2 مگابایت </label>
-                                    <input class="form-control" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
+                                    <input class="form-control mb-2" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
                                     <x-show-error field="file"/>
+                                    <a href="{{ old('file') ? asset(old('file')) : asset('/uploads/no-image.jpg') }}" target=”_blank” id="image">
+                                        <img src="{{ old('file') ? asset(old('file')) : asset('/uploads/no-image.jpg') }}" class="rounded" alt="عکس فروشگاه" height="100" width="100"
+                                        id="img">
+                                    </a>
                                 </div>
                                 <div class="mb-3">
                                     <label for="storeCategoryID" class="form-label">دسته بندی فروشگاه</label>
@@ -68,4 +72,12 @@
             </div>
         </div>
     </div>
+    <script>
+        let img = document.querySelector('#img');
+        let fileInput = document.querySelector('#file');
+        fileInput.addEventListener('change', () => {
+            const [file] = fileInput.files
+            if (file) img.src = URL.createObjectURL(file);
+        })
+    </script>
 </x-layout>

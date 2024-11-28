@@ -39,11 +39,11 @@
                                 <br>
                                 <label class="form-label">فرمت های مجاز : jpg - jpeg</label>
                                 <label class="form-label">و حداکثر حجم فایل : 2 مگابایت </label>
-                                <input class="form-control" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
+                                <input class="form-control mb-2" name="file" type="file" id="file" accept="image/jpg, image/jpeg">
                                 <x-show-error field="file"/>
 
-                                <a href="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/stores/no-image.jpg') }}" target=”_blank” id="image">
-                                    <img src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/stores/no-image.jpg') }}" class="rounded" alt="عکس فروشگاه" height="100" width="100"
+                                <a href="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/no-image.jpg') }}" target=”_blank” id="image">
+                                    <img src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/no-image.jpg') }}" class="rounded" alt="عکس فروشگاه" height="100" width="100"
                                     id="img">
                                 </a>
                                 @if($store->storeImage)
@@ -85,6 +85,13 @@
 
     <script>
 
+        let img = document.querySelector('#img');
+        let fileInput = document.querySelector('#file');
+        fileInput.addEventListener('change', () => {
+            const [file] = fileInput.files
+            if (file) img.src = URL.createObjectURL(file);
+        })
+
         let deleteImage = document.querySelector('#deleteImage');
         deleteImage.addEventListener('click', (e) => {
             e.preventDefault();
@@ -102,9 +109,9 @@
             })
                 .then(data => {
                     if(data.message === "success"){
-                        document.querySelector('#image').setAttribute('href', '/uploads/stores/no-image.jpg');
-                        document.querySelector('#img').setAttribute('src', '/uploads/stores/no-image.jpg');
-                        document.querySelector('#img').setAttribute('src', '/uploads/stores/no-image.jpg');
+                        document.querySelector('#image').setAttribute('href', '/uploads/no-image.jpg');
+                        img.setAttribute('src', '/uploads/no-image.jpg');
+                        img.setAttribute('src', '/uploads/no-image.jpg');
                         document.querySelector('#deleteSuccess').innerHTML = 'تصویر با موفقیت حذف شد'
                         document.querySelector('#deleteImage').remove();
                         setTimeout(() => {

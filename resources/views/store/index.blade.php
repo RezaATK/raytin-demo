@@ -47,7 +47,7 @@
                     <a href="{{ "/stores/id/" . $store->storeID }}">
                     <div class="card h-100">
                         <div class="card-img-top_warper">
-                            <img class="card-img-top" src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/stores/no-image.jpg') }}" alt="{{ $store->storeName }}"></div>
+                            <img class="card-img-top" src="{{ $store->storeImage ? asset($store->storeImage) : asset('/uploads/no-image.jpg') }}" alt="{{ $store->storeName }}"></div>
                             <div class="card-body">
                             <h5 class="card-title mb-1">{{ $store->storeName }}</h5>
                             <p><span class="badge rounded-pill bg-success fs-6">{{ $store->genderSpecific }}</span><br>
