@@ -46,7 +46,7 @@ class StoreFamilyRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'familyMemberBirthday' => jalaliToGregorian($this->input('familyMemberBirthday')) ?? null,
+            'familyMemberBirthday' => $this->has('familyMemberBirthday') && !empty($this->input('familyMemberBirthday')) ? jalaliToGregorian($this->input('familyMemberBirthday')) : null,
         ]);
     }
     public function attributes(): array

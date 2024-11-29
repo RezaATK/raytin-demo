@@ -8,11 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class UserFamilyMembersPolicy
 {
-    const FamilyMemberCreate = 'usersfamilymembers:create';
+    private const FamilyMemberCreate = 'usersfamilymembers:create';
 
-    const FamilyMemberEdit = 'usersfamilymembers:edit';
+    private const FamilyMemberEdit = 'usersfamilymembers:edit';
 
-    const FamilyMemberDelete = 'usersfamilymembers:delete';
+    private const FamilyMemberDelete = 'usersfamilymembers:delete';
 
 
     const CREATE = 'create';

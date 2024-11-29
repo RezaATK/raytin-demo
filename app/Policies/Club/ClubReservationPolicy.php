@@ -9,28 +9,31 @@ use Illuminate\Auth\Access\Response;
 class ClubReservationPolicy
 {
 
-    const ClubReservationReserve = 'clubreserve:reserve';
+    private const ClubReservationReserve = 'clubreserve:reserve';
 
-    const ClubReservationMyReservations = 'clubreserve:myreservations';
+    private const ClubReservationMyReservations = 'clubreserve:myreservations';
 
-    const ClubReservationOwnLetter = 'clubreserve:ownletter';
+    private const ClubReservationOwnLetter = 'clubreserve:ownletter';
 
-    const ClubReservationAllLetters = 'clubreservation:allletter';
+    private const ClubReservationAllLetters = 'clubreservation:allletters';
 
-    const ClubReservationManage = 'clubreservation:manage';
+    private const ClubReservationManage = 'clubreservation:manage';
 
-    const ClubReservationApprove = 'clubreservation:approve';
+    private const ClubReservationApprove = 'clubreservation:approve';
 
-    const ClubReservationReject = 'clubreservation:reject';
+    private const ClubReservationReject = 'clubreservation:reject';
 
-    const ClubReservationSTATS = 'clubreservation:stats';
+    private const ClubReservationSTATS = 'clubreservation:stats';
 
-    const ClubReservationDelete = 'clubreservation:delete';
-
+    private const ClubReservationExport = 'clubreservation:export';
+    
+    private const ClubReservationDelete = 'clubreservation:delete';
 
     const RESERVE = 'reserve';
 
     const MYRESERVATIONS = 'myreservations';
+    
+    const LETTER = 'letter';
 
     const MANAGE = 'manage';
 
@@ -40,9 +43,11 @@ class ClubReservationPolicy
 
     const STATS = 'stats';
 
+    const EXPORT = 'export';
+    
     const DELETE = 'delete';
-
-
+    
+    // const ALLLETTER = 'delete';
     public function reserve(User $user): bool
     {
         return $user->can(self::ClubReservationReserve);
@@ -55,7 +60,7 @@ class ClubReservationPolicy
     }
 
 
-    public function letter(User $user, ClubReservations $clubReservations): Response|bool
+    public function letter(User $user, ClubReservations $clubReservations)
     {
         if($clubReservations->verification !== 'verified'){
             return Response::denyAsNotFound();
@@ -92,6 +97,12 @@ class ClubReservationPolicy
     public function stats(User $user, ClubReservations $clubReservations): bool
     {
         return $user->can(self::ClubReservationSTATS);
+    }
+
+
+    public function export(User $user, ClubReservations $clubReservations): bool
+    {
+        return $user->can(self::ClubReservationExport);
     }
 
 

@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class StoresExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class FoodsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -31,21 +31,17 @@ class StoresExport implements FromQuery, withHeadings, shouldAutoSize, withMappi
 
     public function query()
     {
-        return DB::table('stores')
-            ->select(
-                'stores.storeID as storeID',
-                'stores.storeName as storeName',
-                'stores.storeTerms as storeTerms',
-                'stores.storeDetails as storeDetails',
-                'stores.storeAddress as storeAddress',
-                'stores.storeNeighborhood as storeNeighborhood',
-                'storecategory.CategoryName as CategoryName',
-                'stores.isActive as isActive',
-            )
-            ->join('storecategory', 'stores.storeCategoryID', '=', 'storecategory.storeCategoryID')
-            ->orderBy('storeID')
+        return DB::table('foods')
+        ->select(
+            'foods.foodID as foodID',
+            'foods.foodName as foodName',
+            'foods.foodPrice as foodPrice',
+            'foodcategory.categoryName as categoryName',
+            'foods.isActive as isActive')
+        ->join('foodcategory', 'foodcategory.foodCategoryID', '=', 'foods.foodCategoryID')
+            ->orderBy('foodID')
             ->when($this->ids, function ($query) {
-                $query->whereIn('storeID', $this->ids);
+                $query->whereIn('foodID', $this->ids);
             });
     }
 
@@ -53,11 +49,8 @@ class StoresExport implements FromQuery, withHeadings, shouldAutoSize, withMappi
     {
         return [
             '#',
-            'نام فروشگاه',
-            'شرایط',
-            'توضیحات',
-            'آدرس',
-            'محله',
+            'نام غذا',
+            'هزینه',
             'دسته بندی',
             'وضعیت',
         ];
@@ -66,13 +59,10 @@ class StoresExport implements FromQuery, withHeadings, shouldAutoSize, withMappi
     public function map($row): array
     {
         return [
-            $row->storeID,
-            $row->storeName,
-            $row->storeTerms,
-            $row->storeDetails,
-            $row->storeAddress,
-            $row->storeNeighborhood,
-            $row->CategoryName,
+            $row->foodID,
+            $row->foodName,
+            $row->foodPrice,
+            $row->categoryName,
             $row->isActive === 1 ? 'فعال' : 'غیرفعال',
         ];
     }

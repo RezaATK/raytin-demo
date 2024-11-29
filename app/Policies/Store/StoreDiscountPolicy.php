@@ -18,6 +18,7 @@ class StoreDiscountPolicy
     private const AllDiscountsManageAbility = 'alldiscounts:manage';
     private const AllDiscountsApproveAbility = 'alldiscounts:approve';
     private const AllDiscountsRejectAbility = 'alldiscounts:reject';
+    private const AllDiscountsExportAbility = 'alldiscounts:export';
     private const AllDiscountsDeleteAbility = 'alldiscounts:delete';
 
     private const VerifyDiscountsAllLettersAbility = 'verifydiscounts:allletters';
@@ -25,6 +26,7 @@ class StoreDiscountPolicy
     private const VerifyDiscountsRejectAbility = 'verifydiscounts:reject';
     private const VerifyDiscountsApproveAbility = 'verifydiscounts:approve';
     private const VerifyDiscountsDeleteAbility = 'verifydiscounts:delete';
+    private const VerifyDiscountsExportAbility = 'verifydiscounts:export';
     private const VerifyDiscountsAdditionalNoteAbility = 'verifydiscounts:additionalnote';
 
 
@@ -36,11 +38,13 @@ class StoreDiscountPolicy
     const AllDiscountsManage = 'allDiscountsManage';
     const AllDiscountsApprove = 'allDiscountsApprove';
     const AllDiscountsReject = 'allDiscountsReject';
+    const AllDiscountsExport = 'allDiscountsExport';
     const AllDiscountsDelete = 'allDiscountsDelete';
 
     const VerifyDiscountsManage = 'verifyDiscountsManage';
     const VerifyDiscountsApprove = 'verifyDiscountsApprove';
     const VerifyDiscountsReject = 'verifyDiscountsReject';
+    const VerifyDiscountsExport = 'verifyDiscountsExport';
     const VerifyDiscountsDelete = 'verifyDiscountsDelete';
     const VerifyDiscountsAdditionalNote = 'verifyDiscountsAdditionalNote';
 
@@ -73,6 +77,7 @@ class StoreDiscountPolicy
 
         return $user->can(self::StoreDiscountsOwnLetter);
     }
+    
 
     public function stats(User $user): bool
     {
@@ -97,6 +102,11 @@ class StoreDiscountPolicy
     }
 
 
+    public function allDiscountsExport(User $user): bool
+    {
+        return $user->can(self::AllDiscountsExportAbility);
+    }
+
     public function allDiscountsDelete(User $user): bool
     {
         return $user->can(self::AllDiscountsDeleteAbility);
@@ -119,6 +129,10 @@ class StoreDiscountPolicy
         return $user->can(self::VerifyDiscountsRejectAbility);
     }
 
+    public function verifyDiscountsExport(User $user): bool
+    {
+        return $user->can(self::VerifyDiscountsExportAbility);
+    }
 
     public function verifyDiscountsDelete(User $user): bool
     {

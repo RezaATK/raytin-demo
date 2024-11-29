@@ -17,7 +17,7 @@ class ClubManagementController extends Controller
 
     public function index()
     {
-        Gate::authorize(ClubPolicy::MANAGE, new Club());
+        $this->authorize(ClubPolicy::MANAGE, new Club());
 
         return view('club.manage');
     }
@@ -25,7 +25,7 @@ class ClubManagementController extends Controller
 
     public function create()
     {
-        Gate::authorize(ClubPolicy::CREATE, new Club());
+        $this->authorize(ClubPolicy::CREATE, new Club());
 
         $clubCategories = ClubCategory::all();
 
@@ -36,7 +36,7 @@ class ClubManagementController extends Controller
     public function store(ClubRequest $request)
     {
 
-        Gate::authorize(ClubPolicy::CREATE, new Club());
+        $this->authorize(ClubPolicy::CREATE, new Club());
 
         $club = Club::create($request->validated());
 
@@ -45,7 +45,7 @@ class ClubManagementController extends Controller
 
             $fileName = \Illuminate\Support\Str::random(16) . '.' . $extension;
 
-            $path = '/uploads/stores/' . $club->clubID;
+            $path = '/uploads/clubs/' . $club->clubID;
 
             $fileFullPath = $file->storeAs($path, $fileName);
 
@@ -61,7 +61,7 @@ class ClubManagementController extends Controller
 
     public function edit(Club $club)
     {
-        Gate::authorize(ClubPolicy::EDIT, new Club());
+        $this->authorize(ClubPolicy::EDIT, new Club());
 
         $clubCategories = ClubCategory::all();
 
@@ -71,7 +71,7 @@ class ClubManagementController extends Controller
 
     public function update(ClubRequest $request, Club $club)
     {
-        Gate::authorize(ClubPolicy::EDIT, new Club());
+        $this->authorize(ClubPolicy::EDIT, new Club());
 
         $club->update($request->validated());
 
@@ -80,7 +80,7 @@ class ClubManagementController extends Controller
 
             $fileName = \Illuminate\Support\Str::random(16) . '.' . $extension;
 
-            $path = '/uploads/stores/' . $club->clubID;
+            $path = '/uploads/clubs/' . $club->clubID;
 
             $fileFullPath = $file->storeAs($path, $fileName);
 
@@ -95,7 +95,7 @@ class ClubManagementController extends Controller
 
     public function deleteImage(Club $club)
     {
-        Gate::authorize(ClubPolicy::EDIT, new Club());
+        $this->authorize(ClubPolicy::EDIT, new Club());
 
         Storage::delete($club->clubImage);
 

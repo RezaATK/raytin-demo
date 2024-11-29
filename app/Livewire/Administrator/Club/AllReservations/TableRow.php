@@ -26,7 +26,10 @@ class TableRow extends BaseTableRowClass
 
     public function approve(int $id): void
     {
-        Gate::authorize(ClubReservationPolicy::APPROVE, new ClubReservations());
+        if (! Gate::check(ClubReservationPolicy::APPROVE, new ClubReservations())) {
+           $this->showOpUnauthorized();
+           return;
+        }
 
         $query = $this->itemUpdated($id, true);
 
@@ -40,8 +43,11 @@ class TableRow extends BaseTableRowClass
 
     public function reject(int $id): void
     {
-        Gate::authorize(ClubReservationPolicy::REJECT, new ClubReservations());
-
+        if (! Gate::check(ClubReservationPolicy::REJECT, new ClubReservations())) {
+            $this->showOpUnauthorized();
+            return;
+        }
+ 
         $query = $this->itemUpdated($id, true);
 
         $query->update(['verification' => 'rejected']);

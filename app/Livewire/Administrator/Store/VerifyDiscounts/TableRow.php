@@ -23,14 +23,12 @@ class TableRow extends BaseTableRowClass
     public From $form;
 
     public $listeners = [
-//        'updated.{storeDiscount.discountID}' => 'itemUpdated',
         'updated.{storeDiscount.discountID}' => '$refresh',
     ];
 
     public function mount()
     {
         $this->additionalNote = $this->storeDiscount->additionalNote;
-//        $this->form->setInit($this->storeDiscount);
     }
 
     public function render()
@@ -39,7 +37,6 @@ class TableRow extends BaseTableRowClass
     }
 
 
-//    #[Renderless]
     public function save($id)
     {
         $discount = new StoreDiscount();

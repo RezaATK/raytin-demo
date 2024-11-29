@@ -14,7 +14,7 @@ class StoreDiscountManagementController extends Controller
 
     public function alldiscounts()
     {
-        Gate::authorize(StoreDiscountPolicy::AllDiscountsManage, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::AllDiscountsManage, new StoreDiscount());
 
         return view('store.alldiscounts');
     }
@@ -22,7 +22,7 @@ class StoreDiscountManagementController extends Controller
 
     public function verifydiscounts()
     {
-        Gate::authorize(StoreDiscountPolicy::VerifyDiscountsManage, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::VerifyDiscountsManage, new StoreDiscount());
 
         return view('store.verifydiscounts');
     }
@@ -32,7 +32,7 @@ class StoreDiscountManagementController extends Controller
     {
 
         Gate::authorize(StoreDiscountPolicy::STATS, new StoreDiscount());
-//
+
        $popularStores = StoreDiscount::query()
            ->selectRaw('count(store_discounts.storeID) as MostReserved, stores.storeName, store_discounts.storeID')
            ->join('stores', 'stores.storeID', '=', 'store_discounts.storeID')

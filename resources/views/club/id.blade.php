@@ -23,8 +23,11 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <img class="card-img card-img-right"
-                                 src="/uploads/clubs/{{ $club->category->clubCategoryID }}.jpg" alt="Card image">
+                            <img class="card-img card-img-right rounded" 
+                            src="{{ $club->clubImage 
+                            ? asset($club->clubImage) 
+                            : asset('/uploads/no-image.jpg') }}" 
+                            alt="{{ $club->clubID }}" width="300" height="300">
                         </div>
                     </div>
                 </div>

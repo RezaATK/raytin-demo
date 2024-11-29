@@ -5,9 +5,11 @@ namespace App\Livewire\Administrator\User;
 use App\Exports\UsersExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\User\User;
+use App\Policies\User\UserPolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
@@ -16,6 +18,7 @@ use Livewire\WithPagination;
 #[Lazy]
 class Manage extends BaseTableClass
 {
+    
     use withPagination;
 
     public string $column = 'userID';
@@ -49,10 +52,10 @@ class Manage extends BaseTableClass
     public function delete(?int $id = null): void
     {
         $user = new User();
-//        if (! Gate::check('delete', $user)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(UserPolicy::DELETE, $user)) {
+            $this->showOpUnauthorized();
+            return;
+        }
 
         $ids = $this->resolveIds($id);
 
@@ -66,11 +69,10 @@ class Manage extends BaseTableClass
     public function toggle(string $column, int $id): void
     {
         $user = new User();
-
-//        if (! Gate::check('update', $user)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        // if (! Gate::check(UserPolicy::, $user)) {
+            // $this->showOpUnauthorized();
+            // return;
+        // }
 
         $this->handleToggle($column, $id, $user);
     }
@@ -78,6 +80,12 @@ class Manage extends BaseTableClass
 
     public function export()
     {
+        $user = new User();
+        if (! Gate::check(UserPolicy::EXPORT, new User())) {
+            $this->showOpUnauthorized();
+            return;
+        }
+
         return (new UsersExport())->whereIn($this->ids)->download("users-" . verta()->formatDate() . ".xlsx");
         // return (new UsersExport())->whereIn($this->ids)->queue("users-" . verta()->formatDate() . ".xlsx");
     }

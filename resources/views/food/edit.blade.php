@@ -40,7 +40,7 @@
                                 <x-show-error field="foodCategoryID"/>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">افزودن</button>
+                            <button type="submit" class="btn btn-primary">ویرایش</button>
                             <a href="{{ route('food.manage') }}" type="button" class="btn btn-primary">بازگشت</a>
                         </form>
                     </div>

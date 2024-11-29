@@ -1,4 +1,40 @@
 <?php
+function getArrayOfTags(string|null $tags): array
+{
+    $arrayOfTags = [];
+
+    if (!$tags) {
+        return $arrayOfTags;
+    }
+
+    foreach (json_decode($tags) as $tag) {
+        $arrayOfTags[] = $tag->value;
+    }
+    return $arrayOfTags;
+}
+
+
+function getStringOfTags(string|null $tags, bool $fromDB = false): string
+{
+
+    $stringOfTags = "";
+
+    if (!$tags) {
+        return $stringOfTags;
+    }
+
+    $property = $fromDB ? "name" : "value";
+
+    $char = ',';
+
+    for($i = 0; $i < $count = count($allTags = json_decode($tags)); $i++){
+        if($i == ($count - 1)){
+            $char = '';
+        }
+        $stringOfTags .= $allTags[$i]->{$property} . $char;
+    }
+    return $stringOfTags;
+}
 
 
 function isActiveRoute(array $route): bool

@@ -7,23 +7,26 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    const UserManage = 'user:manage';
+    private const UserManage = 'user:manage';
 
-    const UserCreate = 'user:create';
+    private const UserCreate = 'user:create';
 
-    const UserEdit = 'user:edit';
+    private const UserEdit = 'user:edit';
 
-    const UserDelete = 'user:delete';
+    private const UserExport = 'user:export';
+    
+    private const UserDelete = 'user:delete';
 
-
+    
     const MANAGE = 'manage';
 
     const CREATE = 'create';
 
     const EDIT = 'edit';
 
+    const EXPORT = 'export';
+    
     const DELETE = 'delete';
-
 
 
     public function manage(User $user): Response
@@ -43,6 +46,11 @@ class UserPolicy
         return $user->can(self::UserEdit) ? Response::allow() : Response::deny();
     }
 
+
+    public function export(User $user): Response
+    {
+        return $user->can(self::UserExport) ? Response::allow() : Response::deny();
+    }
 
     public function delete(User $user): Response
     {

@@ -13,7 +13,7 @@ class ClubCategoryManagementController extends Controller
 
     public function index()
     {
-        Gate::authorize(ClubCategoryPolicy::MANAGE, new ClubCategory());
+        $this->authorize(ClubCategoryPolicy::MANAGE, new ClubCategory());
 
         return to_route('clubcategory.manage');
     }
@@ -21,7 +21,7 @@ class ClubCategoryManagementController extends Controller
 
     public function manage()
     {
-        Gate::authorize(ClubCategoryPolicy::MANAGE, new ClubCategory());
+        $this->authorize(ClubCategoryPolicy::MANAGE, new ClubCategory());
 
         return view('clubcategory.index');
     }
@@ -29,7 +29,7 @@ class ClubCategoryManagementController extends Controller
 
     public function create()
     {
-        Gate::authorize(ClubCategoryPolicy::CREATE, new ClubCategory());
+        $this->authorize(ClubCategoryPolicy::CREATE, new ClubCategory());
 
         return view('clubcategory.create');
     }
@@ -37,7 +37,7 @@ class ClubCategoryManagementController extends Controller
 
     public function store(ClubCategoryRequest $request)
     {
-        Gate::authorize(ClubCategoryPolicy::CREATE, new ClubCategory());
+        $this->authorize(ClubCategoryPolicy::CREATE, new ClubCategory());
 
         ClubCategory::create($request->validated());
 
@@ -53,7 +53,7 @@ class ClubCategoryManagementController extends Controller
 
     public function edit(ClubCategory $clubCategory)
     {
-        Gate::authorize(ClubCategoryPolicy::EDIT, $clubCategory);
+        $this->authorize(ClubCategoryPolicy::EDIT, new ClubCategory());
 
         return view('clubcategory.edit', compact('clubCategory'));
     }
@@ -61,7 +61,7 @@ class ClubCategoryManagementController extends Controller
 
     public function update(ClubCategoryRequest $request, ClubCategory $clubCategory)
     {
-        Gate::authorize(ClubCategoryPolicy::EDIT, $clubCategory);
+        $this->authorize(ClubCategoryPolicy::EDIT, new ClubCategory());
 
         $clubCategory->update(['categoryName' => $request->categoryName]);
 

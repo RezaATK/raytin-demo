@@ -14,6 +14,8 @@ class StorePolicy
 
     const StoreEdit = 'store:edit';
 
+    const StoreExport = 'store:export';
+    
     const StoreDelete = 'store:delete';
 
 
@@ -22,6 +24,8 @@ class StorePolicy
     const CREATE = 'create';
 
     const EDIT = 'edit';
+
+    const EXPORT = 'export';
 
     const DELETE = 'delete';
 
@@ -42,6 +46,12 @@ class StorePolicy
     public function edit(User $user, Store $store): Response
     {
         return $user->can(self::StoreEdit) ? Response::allow() : Response::deny();
+    }
+
+
+    public function export(User $user, Store $store): Response
+    {
+        return $user->can(self::StoreExport) ? Response::allow() : Response::deny();
     }
 
 

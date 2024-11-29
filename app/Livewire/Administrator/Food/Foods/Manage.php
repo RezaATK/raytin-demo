@@ -64,7 +64,7 @@ class Manage extends BaseTableClass
     public function toggle(string $column, int $id): void
     {
         $food = new Food();
-        if (! Gate::check(FoodPolicy::TOGGLE, $food)) {
+        if (! Gate::check(FoodPolicy::EDIT, $food)) {
             $this->showOpUnauthorized();
             return;
         }
@@ -75,6 +75,12 @@ class Manage extends BaseTableClass
 
     public function export()
     {
+        $food = new Food();
+        if (! Gate::check(FoodPolicy::EXPORT, $food)) {
+            $this->showOpUnauthorized();
+            return;
+        }
+
        return (new FoodsExport())->whereIn($this->ids)->download("foods-" . verta()->formatDate() . ".xlsx");
     }
 

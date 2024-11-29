@@ -6,6 +6,7 @@ use App\Exports\ClubCategoriesExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Club\ClubCategory;
 use App\Policies\Club\ClubPolicy;
+use App\Policies\ClubCategory\ClubCategoryPolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
@@ -75,6 +76,10 @@ class Manage extends BaseTableClass
 
     public function export()
     {
+        if (! Gate::check(ClubCategoryPolicy::EXPORT, new ClubCategory())) {
+            $this->showOpUnauthorized();
+           return;
+        }
        return (new ClubCategoriesExport())
             ->whereIn($this->ids)
             ->download("ClubCategories-" . verta()->formatDate() . ".xlsx");

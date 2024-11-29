@@ -73,7 +73,7 @@
                                 <x-show-error field="isActive"/>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">افزودن</button>
+                            <button type="submit" class="btn btn-primary">ویرایش</button>
                             <a href="{{ route('store.manage') }}" type="button" class="btn btn-primary">بازگشت</a>
                         </form>
                     </div>

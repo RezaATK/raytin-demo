@@ -14,7 +14,7 @@ class ClubReservationManagementController extends Controller
 {
     public function index()
     {
-        Gate::authorize(ClubReservationPolicy::MANAGE, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::MANAGE, new ClubReservations());
 
         return view('club.allreservations');
     }
@@ -25,7 +25,7 @@ class ClubReservationManagementController extends Controller
     public function stats()
     {
 
-        Gate::authorize(ClubReservationPolicy::STATS, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::STATS, new ClubReservations());
 
         $popularClubs = ClubReservations::query()
                         ->selectRaw('count(club_reservation.clubID) as MostReserved, clubs.clubName, club_reservation.clubID')

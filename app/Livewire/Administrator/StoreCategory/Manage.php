@@ -6,7 +6,9 @@ use App\Exports\StoreCategoriesExport;
 use App\Exports\StoreCategorysExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Store\StoreCategory;
+use App\Policies\StoreCategory\StoreCategoryPolicy;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Renderless;
 use Livewire\WithPagination;
@@ -44,10 +46,10 @@ class Manage extends BaseTableClass
     public function delete(?int $id = null): void
     {
         $clubCategory = new StoreCategory();
-//        if (! Gate::check('delete', $clubCategory)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(StoreCategoryPolicy::DELETE, $clubCategory)) {
+           $this->showOpUnauthorized();
+           return;
+       }
 
         $ids = $this->resolveIds($id);
 
@@ -60,19 +62,24 @@ class Manage extends BaseTableClass
     #[Renderless]
     public function toggle(string $column, int $id): void
     {
-//        $clubCategory = new StoreCategory();
+    //    $clubCategory = new StoreCategory();
+    //    if (! Gate::check('update', $clubCategory)) {
+        //    $this->showOpUnauthorized();
+        //    return;
+    //    }
 
-//        if (! Gate::check('update', $clubCategory)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
-
-//        $this->handleToggle($column, $id, $clubCategory);
+    //    $this->handleToggle($column, $id, $clubCategory);
     }
 
 
     public function export()
     {
+        $clubCategory = new StoreCategory();
+        if (! Gate::check(StoreCategoryPolicy::EXPORT, $clubCategory)) {
+           $this->showOpUnauthorized();
+           return;
+       }
+        
        return (new StoreCategoriesExport())
                 ->whereIn($this->ids)
                 ->download("StoreCategories-" . verta()->formatDate() . ".xlsx");

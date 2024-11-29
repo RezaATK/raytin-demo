@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administrator\Food;
 
 use App\Http\Controllers\Controller;
 use App\Models\Food\FoodReservation;
+use App\Policies\Food\FoodPolicy;
 use App\Policies\Food\FoodReservationPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,8 +15,7 @@ class FoodReservationManagementController extends Controller
 {
     public function stats()
     {
-
-        Gate::authorize(FoodReservationPolicy::STATS, new FoodReservation());
+        $this->authorize(FoodReservationPolicy::STATS, new FoodReservation());
 
         $todaysDataforCurrentMonthReservData = DB::table('food_reservation')
                         ->selectRaw('food_reservation.foodID, foods.foodName, count(food_reservation.foodID) as foodIDCount')

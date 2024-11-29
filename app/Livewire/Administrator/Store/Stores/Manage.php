@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Administrator\Store\Stores;
 
+use App\Exports\StoresExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Store\Store;
+use App\Policies\Store\StorePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
@@ -30,7 +33,6 @@ class Manage extends BaseTableClass
 
     public function render(): View
     {
-//        $categories = Category::pluck('id', 'name')->toArray();
         $categories = collect();
 
         $query = $this->searchQuery();
@@ -48,10 +50,10 @@ class Manage extends BaseTableClass
     public function delete(?int $id = null): void
     {
         $store = new Store();
-//        if (! Gate::check('delete', $store)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(StorePolicy::DELETE, $store)) {
+           $this->showOpUnauthorized();
+           return;
+       }
 
         $ids = $this->resolveIds($id);
 
@@ -65,11 +67,10 @@ class Manage extends BaseTableClass
     public function toggle(string $column, int $id): void
     {
         $store = new Store();
-
-//        if (! Gate::check('update', $store)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(StorePolicy::EDIT, $store)) {
+            $this->showOpUnauthorized();
+            return;
+        }
 
         $this->handleToggle($column, $id, $store);
     }
@@ -77,20 +78,18 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+        $store = new Store();
+        if (! Gate::check(StorePolicy::EXPORT, $store)) {
+            $this->showOpUnauthorized();
+            return;
+        }
+
+        return (new StoresExport())->whereIn($this->ids)->download("StoreCategories-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]
     protected function searchQuery(): QueryBuilder|EloquentBuilder
     {
-//        'storeName',
-//                'storeDetails',
-//                'storeTerms',
-//                'storeImage',
-//                'storeAddress',
-//                'storeNeighborhood',
-//                'storeCategoryID',
-//                'isActive',
         return Store::query()
             ->select(
                 'stores.storeID as storeID',

@@ -16,7 +16,7 @@ class StoreDiscountController extends Controller
 {
     public function index()
     {
-        Gate::authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
 
         $allActiveStores = Store::with('category')->where('isActive', '=', 1)->get();
         $allCategories = StoreCategory::all();
@@ -27,7 +27,7 @@ class StoreDiscountController extends Controller
     
     public function create(Request $request, Store $store)
     {
-        Gate::authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
 
         $isUserAllowedForMonthAndStore = StoreDiscount::isUserAllowedForThisStoreDiscountInCurrentMonth($store->storeID);
 
@@ -36,7 +36,7 @@ class StoreDiscountController extends Controller
 
     public function store(Request $request, Store $store)
     {
-        Gate::authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
 
         $isUserAllowedForMonthAndStore = StoreDiscount::isUserAllowedForThisStoreDiscountInCurrentMonth($store->storeID);
         abort_if(! $isUserAllowedForMonthAndStore, 403);
@@ -74,7 +74,7 @@ class StoreDiscountController extends Controller
 
     public function discountinfo()
     {
-        Gate::authorize(StoreDiscountPolicy::MYDISCOUNTS, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::REQUEST, new StoreDiscount());
 
         if(! session()->has('trackingCode')){
             return to_route('store.mydiscounts');
@@ -86,7 +86,7 @@ class StoreDiscountController extends Controller
 
     public function mydiscounts()
     {
-        Gate::authorize(StoreDiscountPolicy::MYDISCOUNTS, new StoreDiscount());
+        $this->authorize(StoreDiscountPolicy::MYDISCOUNTS, new StoreDiscount());
 
         return view('store.mydiscounts');
     }
@@ -96,7 +96,7 @@ class StoreDiscountController extends Controller
 
     public function letter(StoreDiscount $storeDiscount)
     {
-        Gate::authorize(StoreDiscountPolicy::LETTER, $storeDiscount);
+        $this->authorize(StoreDiscountPolicy::LETTER, $storeDiscount);
 
         $userData = User::query()->findOrFail($storeDiscount->userID);
 

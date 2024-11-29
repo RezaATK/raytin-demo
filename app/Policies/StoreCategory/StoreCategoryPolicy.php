@@ -15,7 +15,8 @@ class StoreCategoryPolicy
     const StoreCategoryEdit = 'storecategory:edit';
 
     const StoreCategoryDelete = 'storecategory:delete';
-
+    
+    const StoreCategoryExport = 'storecategory:export';
 
 
     const MANAGE = 'manage';
@@ -24,8 +25,9 @@ class StoreCategoryPolicy
 
     const EDIT = 'edit';
 
+    const EXPORT = 'export';
+    
     const DELETE = 'delete';
-
 
 
     public function manage(User $user, StoreCategory $storeCategory): Response
@@ -45,6 +47,12 @@ class StoreCategoryPolicy
         return $user->can(self::StoreCategoryEdit) ? Response::allow() : Response::deny();
     }
 
+
+    public function export(User $user, StoreCategory $storeCategory): Response
+    {
+        return $user->can(self::StoreCategoryExport) ? Response::allow() : Response::deny();
+    }
+    
 
     public function delete(User $user, StoreCategory $storeCategory): Response
     {

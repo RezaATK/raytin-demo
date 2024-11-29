@@ -37,7 +37,8 @@ class StoreUsersRequest extends FormRequest
             'employmentTypeID' => ['required', Rule::in(EmploymentType::all()->pluck('employmentTypeID')->toArray())],
             'gender' => ['required', 'in:male,female'],
             'birthday' => ['required', 'max:50'],
-            'role' => ['required', Rule::in(Role::pluck('name')->toArray())]
+            // 'role' => ['required', Rule::in(Role::pluck('name')->toArray())]
+            'role' => ['nullable']
         ];
     }
 

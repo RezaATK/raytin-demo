@@ -83,7 +83,7 @@
                                 @endforeach
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary">افزودن</button>
+                                <button type="submit" class="btn btn-primary">ویرایش</button>
                                 <a href="{{ route('role.index') }}" type="button" class="btn btn-primary">بازگشت</a>
                             </div>
                         </form>
