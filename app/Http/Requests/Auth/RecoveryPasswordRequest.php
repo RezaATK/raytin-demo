@@ -59,6 +59,7 @@ class RecoveryPasswordRequest extends FormRequest
     {
         return [
             'code' => 'تاییدیه پیامکی',
+            'mobileNumber' => 'شماره موبایل'
         ];
     }
 

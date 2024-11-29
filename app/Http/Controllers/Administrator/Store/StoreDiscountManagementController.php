@@ -33,21 +33,44 @@ class StoreDiscountManagementController extends Controller
 
         Gate::authorize(StoreDiscountPolicy::STATS, new StoreDiscount());
 //
-//        DB::enableQueryLog();
-//        $popularStores = StoreReservations::query()
-//            ->selectRaw('count(store_reservation.storeID) as MostReserved, stores.storeName, store_reservation.storeID')
-//            ->join('stores', 'stores.storeID', '=', 'store_reservation.storeID')
-//            ->where('verification', '=', 'verified')
-//            ->groupBy('stores.storeID')
-//            ->orderBy('MostReserved', 'desc')
-//            ->limit(10)->get();
-//
-//
-////        dd(DB::getQueryLog($popularStores));
-//
-//        return view('store.stats', [
-//            'popularStores' => $popularStores,
-//        ]);
-        return [];
+       $popularStores = StoreDiscount::query()
+           ->selectRaw('count(store_discounts.storeID) as MostReserved, stores.storeName, store_discounts.storeID')
+           ->join('stores', 'stores.storeID', '=', 'store_discounts.storeID')
+           ->where('store_discounts.verification_two', '=', 'verified')
+           ->groupBy('stores.storeID')
+           ->orderBy('MostReserved', 'desc')
+           ->limit(10)
+           ->get();
+
+           
+        $lastMonthDate = jalaliToGregorian(verta()->subMonth()->startMonth()->formatDate());
+        $lastMonthReserveData =  StoreDiscount::query()
+                                        ->selectRaw('count(store_discounts.storeID) as count')
+                                        ->where('discountDate', '=', $lastMonthDate)
+                                        ->where('verification_two', '=', 'verified')
+                                        ->get();   
+        
+        $currentMonthDate = jalaliToGregorian(verta()->startMonth()->formatDate());
+        $currentMonthReserveData =  StoreDiscount::query()
+                                        ->selectRaw('count(store_discounts.storeID) as count')
+                                        ->where('discountDate', '=', $currentMonthDate)
+                                        ->where('verification_two', '=', 'verified')
+                                        ->get();   
+           
+        $startOfYear = jalaliToGregorian(verta()->startYear()->startMonth()->formatDate());
+        $endOfYear = jalaliToGregorian(verta()->startMonth()->formatDate());
+        $allCurrentYearReservations =  StoreDiscount::query()
+                                        ->selectRaw('count(store_discounts.storeID) as count')
+                                        ->whereBetween('discountDate', [$startOfYear, $endOfYear])
+                                        ->where('verification_two', '=', 'verified')
+                                        ->get();   
+
+
+       return view('store.stats', [
+            'popularStores' => $popularStores,
+            'lastMonthReserveData' => $lastMonthReserveData[0]-> count ?? 0,
+            'currentMonthReserveData' => $currentMonthReserveData[0]-> count ?? 0,
+            'allCurrentYearReservations' => $allCurrentYearReservations[0]-> count ?? 0,
+        ]);
     }
 }

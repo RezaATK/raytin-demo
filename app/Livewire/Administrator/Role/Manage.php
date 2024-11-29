@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Role;
 
+use App\Exports\RolesExport;
 use App\Livewire\Administrator\BaseTableClass;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Renderless;
@@ -76,7 +77,7 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new RolesExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new RolesExport())->whereIn($this->ids)->download("roles-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]
