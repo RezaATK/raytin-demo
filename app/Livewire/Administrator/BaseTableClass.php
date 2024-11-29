@@ -192,8 +192,14 @@ abstract class BaseTableClass extends Component
     }
 
 
-    public function placeholder(){
-        return  view('livewire.loading');
+    public function searchUpdated(): void
+    {
+        $this->resetPage();
     }
+
+
+    // public function placeholder(){
+        // return  view('livewire.loading');
+    // }
 
 }

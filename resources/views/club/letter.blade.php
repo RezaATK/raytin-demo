@@ -26,7 +26,7 @@
         <div class="hide_in_print mb-5"></div>
         <div id="letter_permit" class="p-10">
             <img class="sarbarg_oxin_top" src="{{ asset('/assets/img/pages/sarbarg_top.jpg') }}">
-            <img class="sarbarg_oxin_bottom" src="{{ asset('/assets/img/pages/sarbarg_bottom.jpgs') }}">
+            <img class="sarbarg_oxin_bottom" src="{{ asset('/assets/img/pages/sarbarg_bottom.jpg') }}">
             <div class="letter_permit_content">
                 <h5 style="text-align: justify;">
                     <p style="text-align:left;">

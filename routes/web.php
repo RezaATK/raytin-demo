@@ -16,17 +16,13 @@ use App\Http\Controllers\Administrator\Users\UsersController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frontend\Club\ClubReservationController;
 use App\Http\Controllers\Frontend\Food\FoodReservationController;
+use App\Http\Controllers\Frontend\Letter\AllLettersController;
 use App\Http\Controllers\Frontend\Store\StoreDiscountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
-// if(Hash::check('password', '$2y$12$0.ncG1GAdReRcnvoGzw1qORm4eVBJXzC4EQeiuo3.0kz3IYvaKrCa')){
-    // dd('true');
-// }else{
-    // dd('fasle');
-// }
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login')->middleware(['guest']);
 Route::get('login', fn() => redirect('/'))->middleware(['guest']);
 Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login_password')->middleware(['guest']);
@@ -136,5 +132,10 @@ Route::middleware('auth')->group(function () {
     });
 
 });
+
+
+Route::get('/letter/id', [AllLettersController::class, 'create'])->name('letter.create');
+Route::post('/letter/id', [AllLettersController::class, 'store'])->name('letter.store');
+Route::get('/letter/show/{trackingCode}', [AllLettersController::class, 'show'])->name('letter.show');
 
 require __DIR__.'/auth.php';
