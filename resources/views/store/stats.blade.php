@@ -2,42 +2,32 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 breadcrumb-wrapper mb-4">
-            <span class="text-muted fw-light">خدمات ورزشی / </span>آمار رزروها</h4>
+            <span class="text-muted fw-light">خدمات رفاهی / </span>آمار درخواست ها</h4>
         <div class="row">
             <div class="col-md-6">
 
-                <h5 class="p- mb-3">اطلاعات کلی رزروها</h5>
+                <h5 class="p- mb-3">اطلاعات کلی درخواست ها</h5>
                 <div class="card">
                     <table class="table table-striped">
                         <thead>
-                        <!-- <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        </tr> -->
                         </thead>
                         <tbody>
                         <tr>
-                            <td>تعداد رزروهای ماه آینده</td>
+                            <td>تعداد درخواست های ماه جاری</td>
                             <td>
-                                0
+                                {{ $currentMonthReserveData }}
                             </td>
                         </tr>
                         <tr>
-                            <td>تعداد رزروهای ماه جاری</td>
+                            <td>تعداد درخواست های ماه گذشته</td>
                             <td>
-                                0
+                                {{ $lastMonthReserveData }}
                             </td>
                         </tr>
                         <tr>
-                            <td>تعداد رزروهای ماه گذشته</td>
+                            <td>تعداد درخواست های سال جاری</td>
                             <td>
-                                0
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>تعداد رزروهای سال جاری</td>
-                            <td>
-                                0
+                                {{ $allCurrentYearReservations }}
                             </td>
                         </tr>
                         </tbody>
@@ -52,15 +42,15 @@
                         <thead>
                         <tr>
                             <th style="text-align:right">نام باشگاه</th>
-                            <th style="text-align:right">تعداد کل رزروها</th>
+                            <th style="text-align:right">تعداد کل درخواست ها</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @if($popularClubs)
-                                @foreach($popularClubs as $club)
+                            @if($popularStores)
+                                @foreach($popularStores as $store)
                                     <tr>
-                                        <td>{{ $club->clubName }}</td>
-                                        <td>{{ $club->MostReserved }}</td>
+                                        <td>{{ $store->storeName }}</td>
+                                        <td>{{ $store->MostReserved }}</td>
                                     </tr>
                                 @endforeach
                             @else

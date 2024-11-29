@@ -19,25 +19,25 @@
                         <tr>
                             <td>تعداد رزروهای ماه آینده</td>
                             <td>
-                                0
+                                {{  $nextMonthReserveData }}
                             </td>
                         </tr>
                         <tr>
                             <td>تعداد رزروهای ماه جاری</td>
                             <td>
-                                0
+                                {{ $currentMonthReserveData }}
                             </td>
                         </tr>
                         <tr>
                             <td>تعداد رزروهای ماه گذشته</td>
                             <td>
-                                0
+                                {{ $lastMonthReserveData }}
                             </td>
                         </tr>
                         <tr>
                             <td>تعداد رزروهای سال جاری</td>
                             <td>
-                                0
+                                {{ $allCurrentYearReservations }}
                             </td>
                         </tr>
                         </tbody>

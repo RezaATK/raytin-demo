@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 
 class LoginRequest extends FormRequest
 {
@@ -27,7 +30,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobileNumber' => ['required', 'string'],
+            'mobileNumber_withpassword' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,11 +44,12 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('mobileNumber', 'password'), $this->boolean('remember'))) {
+        $creds = ['mobileNumber' => $this->input('mobileNumber_withpassword'), 'password' => $this->input('password')];
+        if (! Auth::attempt($creds, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'mobileNumber' => trans('auth.failed'),
+                'mobileNumber_withpassword' => trans('auth.failed'),
             ]);
         }
 
@@ -68,7 +72,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'mobileNumber' => trans('auth.throttle', [
+            'mobileNumber_withpassword' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -80,6 +84,21 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('mobileNumber')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('mobileNumber_withpassword')).'|'.$this->ip());
     }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $this->container->instance('formFailed', true);
+    
+        parent::failedValidation($validator);
+    }
+
+    public function attributes()
+    {
+        return [
+            'mobileNumber_withpassword' => 'شماره موبایل',
+        ];
+    }
+    
 }

@@ -92,21 +92,20 @@ use app\helpers\Validator;
               </a>
             </div>
             <!-- /Logo -->
-
             @if(session()->has('success'))
               <div class="text-primary">{{ session('success') }}</div>
             @endif
             <p class="mb-4">لطفا وارد حساب خود شوید</p>
-            <?php 
-                if(isset($data['mobile_password_form'])){
-                  $profile_active_show = 'active show';
-                  $profile_active = 'active';
-                }else
-                {
-                  $home_active_show = 'active show';
-                  $home_active = 'active';
-                }
-                ?>
+
+      @php 
+          if(session('errors') && session('errors')->has('mobileNumber')){
+            $home_active_show = 'active show';
+            $home_active = 'active';
+          }else{
+            $profile_active_show = 'active show';
+            $profile_active = 'active';
+          }
+        @endphp
             <div class="nav-align-top mb-4">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -146,10 +145,10 @@ use app\helpers\Validator;
                   <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login_password') }}">
                     @csrf
                   <div class="mb-3 form-mobile-toggle">
-                      <label for="mobileNumber" class="form-label">شماره موبایل</label>
-                      <input type="text" id="mobileNumber" name="mobileNumber" placeholder="موبایل خود را وارد کنید" autofocus dir="ltr" class="form-control text-start " value="{{ old('mobileNumber', '') }}">
+                      <label for="mobileNumber_withpassword" class="form-label">شماره موبایل</label>
+                      <input type="text" id="mobileNumber_withpassword" name="mobileNumber_withpassword" placeholder="موبایل خود را وارد کنید" autofocus dir="ltr" class="form-control text-start " value="{{ old('mobileNumber_withpassword', '') }}">
                       <span class="invalid-feedback" id="invalid_sms"></span>
-                      @error('mobileNumber')
+                      @error('mobileNumber_withpassword')
                       <div class="text-danger">{{ $message }}</div>
                       @enderror
                   </div>
@@ -164,10 +163,10 @@ use app\helpers\Validator;
                         <input  type="password" id="password" name="password" placeholder="············" aria-describedby="password" dir="ltr" class="form-control text-start ">
                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                         <span class="invalid-feedback" id="invalid_password"></span>
-                        @error('password')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
                       </div>
+                      @error('password')
+                      <div class="text-danger">{{ $message }}</div>
+                      @enderror
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
