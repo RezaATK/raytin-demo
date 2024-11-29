@@ -13,7 +13,7 @@ class StoreCategoryManagementController extends Controller
 
     public function index()
     {
-        Gate::authorize(StoreCategoryPolicy::MANAGE, new StoreCategory());
+        $this->authorize(StoreCategoryPolicy::MANAGE, new StoreCategory());
 
         return to_route('storecategory.manage');
     }
@@ -21,7 +21,7 @@ class StoreCategoryManagementController extends Controller
 
     public function manage()
     {
-        Gate::authorize(StoreCategoryPolicy::MANAGE, new StoreCategory());
+        $this->authorize(StoreCategoryPolicy::MANAGE, new StoreCategory());
 
         return view('storecategory.index');
     }
@@ -29,7 +29,7 @@ class StoreCategoryManagementController extends Controller
 
     public function create()
     {
-        Gate::authorize(StoreCategoryPolicy::CREATE, new StoreCategory());
+        $this->authorize(StoreCategoryPolicy::CREATE, new StoreCategory());
 
         return view('storecategory.create');
     }
@@ -37,7 +37,7 @@ class StoreCategoryManagementController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        Gate::authorize(StoreCategoryPolicy::CREATE, new StoreCategory());
+        $this->authorize(StoreCategoryPolicy::CREATE, new StoreCategory());
 
         StoreCategory::create($request->validated());
 
@@ -53,7 +53,7 @@ class StoreCategoryManagementController extends Controller
 
     public function edit(StoreCategory $storeCategory)
     {
-        Gate::authorize(StoreCategoryPolicy::EDIT, $storeCategory);
+        $this->authorize(StoreCategoryPolicy::EDIT, $storeCategory);
 
         return view('storecategory.edit', compact('storeCategory'));
     }
@@ -61,7 +61,7 @@ class StoreCategoryManagementController extends Controller
 
     public function update(StoreCategoryRequest $request, StoreCategory $storeCategory)
     {
-        Gate::authorize(StoreCategoryPolicy::EDIT, $storeCategory);
+        $this->authorize(StoreCategoryPolicy::EDIT, $storeCategory);
 
         $storeCategory->update(['categoryName' => $request->categoryName]);
 

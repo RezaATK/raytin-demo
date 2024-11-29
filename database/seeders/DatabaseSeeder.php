@@ -14,17 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call(UnitSeeder::class);
-        // $this->call(EmploymentTypeSeeder::class);
-        // $this->call(UserSeeder::class, parameters: ['count' => 50]);
-        // $this->call(ClubCategorySeeder::class);
-        // $this->call(ClubSeeder::class, parameters: ['count' => 50]);
-        $this->call(ClubReservationsSeeder::class, parameters: ['count' => 15000]);
+        $this->call(UnitSeeder::class);
+        $this->call(EmploymentTypeSeeder::class);
+        $this->call(UserSeeder::class, parameters: ['count' => 50]);
+        $this->call(ClubCategorySeeder::class);
+        $this->call(ClubSeeder::class, parameters: ['count' => 50]);
+        $this->call(ClubReservationsSeeder::class, parameters: ['count' => 100]);
         // $this->call(StoreDiscountSeeder::class, parameters: ['count' => 100]);
-        // $this->call(PermissionSeeeder::class);
-        // $this->call(RoleSeeder::class);
-        // $this->call(FoodCategorySeeder::class);
-        // $this->call(FoodSeeder::class, parameters: ['count' => 10]);
-        // $this->call(MonthSeeder::class);
+        $this->call(PermissionSeeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(FoodCategorySeeder::class);
+        $this->call(FoodSeeder::class, parameters: ['count' => 10]);
+        $this->call(MonthSeeder::class);
     }
 }

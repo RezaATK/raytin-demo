@@ -46,7 +46,11 @@
                 <li class="col-6 col-md-6 col-lg-3 mb-3 grid-item {{ str_replace(" ", "_" ,$club->category->categoryName) }}" data-id="id-{{ $club->clubID }}" data-type="{{ str_replace(" ", "_" ,$club->category->categoryName) }}">
                     <a href="{{ "/clubs/id/" . $club->clubID }}">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/uploads/clubs/{{ $club->category->clubCategoryID }}.jpg" alt="{{ $club->clubName }}">
+                        <img class="card-img-top" 
+                        src="{{ $club->clubImage 
+                        ? asset($club->clubImage) 
+                        : asset('/uploads/no-image.jpg') }}" 
+                         alt="{{ $club->clubName }}">
                             <div class="card-body">
                             <h5 class="card-title mb-1">{{ $club->clubName }}</h5>
                             <p><span class="badge rounded-pill bg-success fs-6">{{ $club->genderSpecific }}</span><br>

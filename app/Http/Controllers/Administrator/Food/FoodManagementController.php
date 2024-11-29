@@ -16,7 +16,7 @@ class FoodManagementController extends Controller
 
     public function manage()
     {
-        Gate::authorize(FoodPolicy::MANAGE, new Food());
+        $this->authorize(FoodPolicy::MANAGE, new Food());
 
         return view('food.manage');
     }
@@ -24,7 +24,7 @@ class FoodManagementController extends Controller
 
     public function create()
     {
-        Gate::authorize(FoodPolicy::CREATE, new Food());
+        $this->authorize(FoodPolicy::CREATE, new Food());
 
         $categories = FoodCategory::all();
 
@@ -34,7 +34,7 @@ class FoodManagementController extends Controller
 
     public function store(FoodRequest $request)
     {
-        Gate::authorize(FoodPolicy::CREATE, new Food());
+        $this->authorize(FoodPolicy::CREATE, new Food());
 
         Food::create($request->validated());
 
@@ -45,7 +45,7 @@ class FoodManagementController extends Controller
 
     public function edit(Food $food)
     {
-        Gate::authorize(FoodPolicy::EDIT, new Food());
+        $this->authorize(FoodPolicy::EDIT, new Food());
 
         $categories = FoodCategory::all();
 
@@ -55,7 +55,7 @@ class FoodManagementController extends Controller
 
     public function update(FoodRequest $request, Food $food)
     {
-        Gate::authorize(FoodPolicy::EDIT, new Food());
+        $this->authorize(FoodPolicy::EDIT, new Food());
 
         $food->update($request->validated());
 

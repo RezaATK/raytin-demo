@@ -9,13 +9,14 @@ use App\Models\User\UsersFamilymembersIds;
 use App\Policies\User\UserFamilyMembersPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Models\Role;
 
 class FamilyMembersControllerController extends Controller
 {
 
     public function store(StoreFamilyRequest $request, User $user)
     {
-        Gate::authorize(UserFamilyMembersPolicy::CREATE, $user->family);
+        $this->authorize(UserFamilyMembersPolicy::CREATE, new UsersFamilymembersIds());
 
         $validated = $request->validated() + ['employeeID' => $user->employeeID];
         $user->family()->create($validated);
@@ -25,7 +26,7 @@ class FamilyMembersControllerController extends Controller
 
     public function destroy(Request $request, User $user)
     {
-        Gate::authorize(UserFamilyMembersPolicy::DELETE, request()->user());
+        $this->authorize(UserFamilyMembersPolicy::DELETE, new UsersFamilymembersIds());
 
         $family = UsersFamilymembersIds::where('familyID', $request->familyID);
 

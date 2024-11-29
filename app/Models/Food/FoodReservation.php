@@ -46,6 +46,17 @@ class FoodReservation extends Model
     }
 
 
+    public function  scopeHasFood(Builder $query, $foodID, string $startOfMonthInJalali, string $endOfMonthInJalali)
+    {
+        $isthereActiveReserves = $query->where('foodID', $foodID)
+                ->whereBetween('reservDate', [
+                        jalaliToGregorian($startOfMonthInJalali),
+                        jalaliToGregorian($endOfMonthInJalali),
+                ])
+                ->exists();
+    }
+
+
     public function user()
     {
         return $this->belongsTo(User::class, 'userID', 'userID');

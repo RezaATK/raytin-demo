@@ -14,8 +14,9 @@ class ClubCategoryPolicy
 
     const ClubCategoryEdit = 'clubcategory:edit';
 
+    const ClubCategoryExport = 'clubcategory:export';
+    
     const ClubCategoryDelete = 'clubcategory:delete';
-
 
 
     const MANAGE = 'manage';
@@ -25,7 +26,8 @@ class ClubCategoryPolicy
     const EDIT = 'edit';
 
     const DELETE = 'delete';
-
+    
+    const EXPORT = 'export';
 
 
     public function manage(User $user, ClubCategory $clubCategory): Response
@@ -45,6 +47,11 @@ class ClubCategoryPolicy
         return $user->can(self::ClubCategoryEdit) ? Response::allow() : Response::deny();
     }
 
+
+    public function export(User $user, ClubCategory $clubCategory): Response
+    {
+        return $user->can(self::ClubCategoryExport) ? Response::allow() : Response::deny();
+    }
 
     public function delete(User $user, ClubCategory $clubCategory): Response
     {

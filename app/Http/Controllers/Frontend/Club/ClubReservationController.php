@@ -19,7 +19,7 @@ class ClubReservationController extends Controller
 
     public function index()
     {
-        Gate::authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
 
         $allActiveClubs = Club::with('category')->where('isActive', '=', 1)->get();
 
@@ -30,7 +30,7 @@ class ClubReservationController extends Controller
 
     public function create(Club $club)
     {
-        Gate::authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
 
         $familyCleanList = (new ClubReservationService())->checkUserReservations(auth()->user()->userID);
         if(isset($familyCleanList[0]['isUserAllowedToReservCurrentMonth']) && ! $familyCleanList[0]['isUserAllowedToReservCurrentMonth']){
@@ -53,7 +53,7 @@ class ClubReservationController extends Controller
 
     public function store(Request $request, Club $club)
     {
-        Gate::authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
 
         if(! $request->currentMonthReserve && ! $request->nextMonthReserve){
             // log
@@ -130,7 +130,7 @@ class ClubReservationController extends Controller
 
     public function reserveinfo()
     {
-        Gate::authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::RESERVE, new ClubReservations());
 
         if(! session()->has('trackingCode')){
             return to_route('store.myreservations');
@@ -144,7 +144,7 @@ class ClubReservationController extends Controller
 
     public function myreservations()
     {
-        Gate::authorize(ClubReservationPolicy::MYRESERVATIONS, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::MYRESERVATIONS, new ClubReservations());
 
         return view('club.myreservations');
     }
@@ -152,7 +152,7 @@ class ClubReservationController extends Controller
 
     public function letter(ClubReservations $clubReservations)
     {
-        Gate::authorize(ClubReservationPolicy::MYRESERVATIONS, new ClubReservations());
+        $this->authorize(ClubReservationPolicy::LETTER, $clubReservations);
 
         $userData = User::query()->findOrFail($clubReservations->userID);
 

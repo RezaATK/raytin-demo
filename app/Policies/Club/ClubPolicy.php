@@ -9,14 +9,15 @@ use Illuminate\Auth\Access\Response;
 class ClubPolicy
 {
 
-    const ClubManage = 'club:manage';
+    private const ClubManage = 'club:manage';
 
-    const ClubCreate = 'club:create';
+    private const ClubCreate = 'club:create';
 
-    const ClubEdit = 'club:edit';
+    private const ClubEdit = 'club:edit';
 
-    const ClubDelete = 'club:delete';
-
+    private const ClubExport = 'club:export';
+    
+    private const ClubDelete = 'club:delete';
 
     const MANAGE = 'manage';
 
@@ -24,8 +25,9 @@ class ClubPolicy
 
     const EDIT = 'edit';
 
+    const EXPORT = 'export';
+    
     const DELETE = 'delete';
-
 
 
     public function manage(User $user, Club $club): Response
@@ -45,6 +47,11 @@ class ClubPolicy
         return $user->can(self::ClubEdit) ? Response::allow() : Response::deny();
     }
 
+
+    public function export(User $user, Club $club): Response
+    {
+        return $user->can(self::ClubExport) ? Response::allow() : Response::deny();
+    }
 
     public function delete(User $user, Club $club): Response
     {

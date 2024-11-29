@@ -29,13 +29,13 @@ class FoodReservationPolicy
 
     public function myreservations(User $user): bool
     {
-        return $user->can(self::FoodReservationSTATS);
+        return $user->can(self::FoodReservationMyReservations);
     }
 
 
     public function stats(User $user): bool
     {
-        return $user->can(self::FoodReservationMyReservations);
+        return $user->can(self::FoodReservationSTATS);
     }
 
 }

@@ -16,7 +16,7 @@ class StoreManagementController extends Controller
 
     public function manage()
     {
-        Gate::authorize(StorePolicy::MANAGE, new Store());
+        $this->authorize(StorePolicy::MANAGE, new Store());
 
         return view('store.manage');
     }
@@ -24,7 +24,7 @@ class StoreManagementController extends Controller
 
     public function create()
     {
-        Gate::authorize(StorePolicy::CREATE, new Store());
+        $this->authorize(StorePolicy::CREATE, new Store());
 
         $storeCategories = StoreCategory::all();
         return view('store.create', compact('storeCategories'));
@@ -33,7 +33,7 @@ class StoreManagementController extends Controller
 
     public function store(StoreRequest $request)
     {
-        Gate::authorize(StorePolicy::CREATE, new Store());
+        $this->authorize(StorePolicy::CREATE, new Store());
 
         $store = Store::create($request->validated());
 
@@ -60,7 +60,7 @@ class StoreManagementController extends Controller
 
     public function edit(Store $store)
     {
-        Gate::authorize(StorePolicy::EDIT, new Store());
+        $this->authorize(StorePolicy::EDIT, new Store());
 
         $storeCategories = StoreCategory::all();
 
@@ -70,7 +70,7 @@ class StoreManagementController extends Controller
 
     public function update(StoreRequest $request, Store $store)
     {
-        Gate::authorize(StorePolicy::EDIT, new Store());
+        $this->authorize(StorePolicy::EDIT, new Store());
 
         $store->update($request->validated());
 
@@ -95,7 +95,7 @@ class StoreManagementController extends Controller
 
     public function deleteImage(Store $store)
     {
-        Gate::authorize(StorePolicy::EDIT, new Store());
+        $this->authorize(StorePolicy::EDIT, new Store());
 
         Storage::delete($store->storeImage);
 

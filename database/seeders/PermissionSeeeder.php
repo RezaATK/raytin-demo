@@ -13,7 +13,7 @@ class PermissionSeeeder extends Seeder
      */
     public function run(): void
     {
-
+        /////////
         Permission::create([
             'name' => 'users:manage',
             'name_fa' => 'صفحه مدیریت کاربران',
@@ -240,46 +240,47 @@ class PermissionSeeeder extends Seeder
             'group_name' => 'رزرو باشگاه',
             'section_name' => 'خدمات ورزشی',
         ]);
+        
 
         ######################################################################################
         ######################################################################################
         ######################################################################################
 
-        /*
+        
         Permission::create([
             'name' => 'storecategory:manage',
             'name_fa' => 'صفحه مدیریت دسته بندی فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت دسته بندی فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'storecategory:create',
             'name_fa' => 'افزودن دسته بندی فروشگاه',
             'guard_name' => 'web',
             'group_name' => 'مدیریت دسته بندی فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'storecategory:edit',
             'name_fa' => 'ویرایش دسته بندی فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت دسته بندی فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'storecategory:delete',
             'name_fa' => 'حذف دسته بندی فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت دسته بندی فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'storecategory:export',
             'name_fa' => 'برون بری دسته بندی فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت دسته بندی فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         ##############################################################################################
@@ -289,7 +290,7 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'صفحه مدیریت فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         Permission::create([
@@ -297,7 +298,7 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'افزودن فروشگاه',
             'guard_name' => 'web',
             'group_name' => 'مدیریت فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         Permission::create([
@@ -305,7 +306,7 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'ویرایش فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         Permission::create([
@@ -313,45 +314,52 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'حذف فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'store:export',
             'name_fa' => 'برون بری فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت فروشگاه ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         ##############################################################################################
 
         Permission::create([
             'name' => 'alldiscounts:manage',
-            'name_fa' => 'صفحه متصدی تعاونی',
+            'name_fa' => 'صفحه متصدی رفاهی',
             'guard_name' => 'web',
-            'group_name' => 'متصدی تعاونی',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'متصدی رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'alldiscounts:approve',
             'name_fa' => 'تایید درخواست ها',
             'guard_name' => 'web',
-            'group_name' => 'متصدی تعاونی',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'متصدی رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'alldiscounts:reject',
             'name_fa' => 'رد درخواست ها',
             'guard_name' => 'web',
-            'group_name' => 'متصدی تعاونی',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'متصدی رفاهی',
+            'section_name' => 'خدمات رفاهی',
+        ]);
+        Permission::create([
+            'name' => 'alldiscounts:delete',
+            'name_fa' => 'حذف درخواست ها',
+            'guard_name' => 'web',
+            'group_name' => 'متصدی رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'alldiscounts:export',
             'name_fa' => 'برون بری درخواست ها',
             'guard_name' => 'web',
-            'group_name' => 'متصدی تعاونی',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'متصدی رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         ##############################################################################################
@@ -360,29 +368,36 @@ class PermissionSeeeder extends Seeder
             'name' => 'verifydiscounts:manage',
             'name_fa' => 'صفحه متصدی حقوق و دستمزد',
             'guard_name' => 'web',
-            'group_name' => 'متصدی تعاونی',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'متصدی حقوق و دستمزد',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'verifydiscounts:approve',
             'name_fa' => 'تایید درخواست ها',
             'guard_name' => 'web',
             'group_name' => 'متصدی حقوق و دستمزد',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'verifydiscounts:reject',
             'name_fa' => 'رد درخواست ها',
             'guard_name' => 'web',
             'group_name' => 'متصدی حقوق و دستمزد',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
+        ]);
+        Permission::create([
+            'name' => 'verifydiscounts:delete',
+            'name_fa' => 'حذف درخواست ها',
+            'guard_name' => 'web',
+            'group_name' => 'متصدی حقوق و دستمزد',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'verifydiscounts:additionalnote',
             'name_fa' => 'ثبت ملاحظات برای درخواست ها',
             'guard_name' => 'web',
             'group_name' => 'متصدی حقوق و دستمزد',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         Permission::create([
@@ -390,14 +405,14 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'مشاهده تمام معرفی نامه های فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'متصدی حقوق و دستمزد',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'verifydiscounts:export',
             'name_fa' => 'برون بری درخواست ها',
             'guard_name' => 'web',
             'group_name' => 'متصدی حقوق و دستمزد',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
 
@@ -407,7 +422,7 @@ class PermissionSeeeder extends Seeder
             'name_fa' => 'صفحه آمار رزرو فروشگاه ها',
             'guard_name' => 'web',
             'group_name' => 'آمار درخواست ها',
-            'section_name' => 'تعاونی مصرف',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         ##############################################################################################
@@ -416,23 +431,23 @@ class PermissionSeeeder extends Seeder
             'name' => 'storediscounts:request',
             'name_fa' => 'امکان رزرو فروشگاه',
             'guard_name' => 'web',
-            'group_name' => 'درخواست تعاونی مصرف',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'درخواست خدمات رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
         Permission::create([
             'name' => 'storediscounts:mydiscounts',
             'name_fa' => 'امکان مشاهده درخواست های خود',
             'guard_name' => 'web',
-            'group_name' => 'درخواست تعاونی مصرف',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'درخواست خدمات رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
         Permission::create([
             'name' => 'storediscounts:ownletter',
             'name_fa' => 'امکان مشاهده معرفی نامه درخواست های خود',
             'guard_name' => 'web',
-            'group_name' => 'درخواست تعاونی مصرف',
-            'section_name' => 'تعاونی مصرف',
+            'group_name' => 'درخواست خدمات رفاهی',
+            'section_name' => 'خدمات رفاهی',
         ]);
 
 
@@ -474,14 +489,6 @@ class PermissionSeeeder extends Seeder
         Permission::create([
             'name' => 'food:export',
             'name_fa' => 'برون بری غذا ها',
-            'guard_name' => 'web',
-            'group_name' => 'مدیریت غذا ها',
-            'section_name' => 'رستوران',
-        ]);
-
-        Permission::create([
-            'name' => 'food:togglestatus',
-            'name_fa' => 'فعال/غیرفعال کردن غذاها',
             'guard_name' => 'web',
             'group_name' => 'مدیریت غذا ها',
             'section_name' => 'رستوران',
@@ -531,6 +538,6 @@ class PermissionSeeeder extends Seeder
         ##############################################################################################
         
         
-        */
+        
     }
 }

@@ -24,8 +24,8 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css">
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css">
-{{--    <link rel="stylesheet" href="{{ asset('assets/css/my-app.css?=v03') }}" />--}}
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
+   <link rel="stylesheet" href="{{ asset('assets/css/my-app.css?=v04') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/rtl.css') }}" />
 
 

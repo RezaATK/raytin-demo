@@ -34,13 +34,12 @@ class Manage extends BaseTableClass
 
     public function render(): View
     {
-//        $categories = Category::pluck('id', 'name')->toArray();
         $categories = collect();
 
         $query = $this->searchQuery();
         $query = $this->sortTerms($query);
         $reserves = $query->paginate($this->pageSize);
-//        dd($reserves);
+
         $this->setTotalItemsInSession($reserves->total());
         $this->currentPageIds = $reserves->map(fn($item) => (string) $item->{$this->primaryKey})->toArray();
 
@@ -50,13 +49,11 @@ class Manage extends BaseTableClass
 
     public function delete(?int $id = null): void
     {
-        Gate::authorize(ClubReservationPolicy::DELETE, new ClubReservations());
-
         $reserve = new ClubReservations();
-//        if (! Gate::check('delete', $reserve)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(ClubReservationPolicy::DELETE, $reserve)) {
+           $this->showOpUnauthorized();
+           return;
+        }
 
         $ids = $this->resolveIds($id);
 
@@ -69,30 +66,16 @@ class Manage extends BaseTableClass
     #[Renderless]
     public function toggle(string $column, int $id): void
     {
-//        $reserve = new ClubReservations();
-
-//        if (! Gate::check('update', $reserve)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
-
-//        $this->handleToggle($column, $id, $reserve);
     }
-
-
-
-
-
-//<livewire:admin.table-row :clubReservations="$clubReservations" :key="$clubReservations->reservID" />
-
 
 
     public function export()
     {
+        if (! Gate::check(ClubReservationPolicy::EXPORT, new ClubReservations())) {
+           $this->showOpUnauthorized();
+           return;
+        }
        return (new ClubsAllReservationsExport())->whereIn($this->ids)->download("ClubsAllReservations-" . verta()->formatDate() . ".xlsx");
-    //    return Excel::download(new ClubsAllReservationsExport, 'invoices.xlsx');
-    //    return (new ClubsAllReservationsExport)->download('invoices.xlsx');
-
     }
 
     #[Computed]

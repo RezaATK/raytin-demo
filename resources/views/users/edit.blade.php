@@ -1,13 +1,27 @@
 <x-layout>
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/libs/tagify/tagify.css') }}" />
     @endpush
+    @push('scripts')
+    <script src="{{ asset('assets/vendor/libs/tagify/tagify.js') }}"></script>
+    @endpush
+    
     @push("footerScriptsEND")
         <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
         <script src="{{ asset('assets/vendor/libs/jdate/jdate.js') }}"></script>
         <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr-jdate.js') }}"></script>
         <script src="{{ asset('assets/vendor/libs/flatpickr/l10n/fa-jdate.js') }}"></script>
         <script>
+            const flatpickrDateTimeSelf = document.querySelector('#flatpickr-datetime-self');
+            flatpickrDateTimeSelf.flatpickr({
+                enableTime: false,
+                maxDate: "today",
+                locale: 'fa',
+                altInput: true,
+                altFormat: 'Y/m/d',
+                disableMobile: true
+            });
             const flatpickrDateTime = document.querySelector('#flatpickr-datetime');
             flatpickrDateTime.flatpickr({
                 enableTime: false,
@@ -77,7 +91,7 @@
                             <div class="mb-3">
                                 <label for="birthday" class="form-label">تاریخ تولد - نمونه تاریخ معتبر
                                     1402/11/24</label>
-                                <input name="birthday" type="text" class="form-control" placeholder="انتخاب تاریخ" id="flatpickr-datetime" value="{{ verta($user->birthday)->formatDate()  }}">
+                                <input name="birthday" type="text" class="form-control" placeholder="انتخاب تاریخ" id="flatpickr-datetime-self" value="{{ verta($user->birthday)->formatDate()  }}">
                                 <x-show-error field="birthday"/>
                             </div>
                             <div class="mb-3">
@@ -115,19 +129,28 @@
                                 </select>
                                 <x-show-error field="employmentTypeID"/>
                             </div>
+
+
+
+
+
+
                             <div class="mb-3">
-                                <label for="defaultSelect" class="form-label">نوع کاربر</label>
-                                <select class="form-select" name="role">
-                                    @foreach($roles as $role)
-                                        <option name="role"
-                                                value="{{ $role->name }}"
-                                        >
-                                            {{ $role->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="role" class="form-label">نوع کاربر</label>
+                                <input type="text" class="form-control" name="role" id="role" value="{{ $roles }}">
                                 <x-show-error field="role"/>
                             </div>
+
+
+
+
+
+
+
+
+
+
+
                             <br>
                             <button type="submit" class="btn btn-primary">ویرایش</button>
                             <a href="/users/manage" type="button" class="btn btn-primary">بازگشت</a>
@@ -252,5 +275,20 @@
             </div>
         </div>
     </div>
-    
+    <script>
+        const tagsEl = document.querySelector("#role");
+
+        const list = {!! $roles_untouched !!};
+
+        let tags = new Tagify(tagsEl, {
+            whitelist: list,
+            maxTags: 10,
+            dropdown: {
+                maxItems: 100,
+                classname: "",
+                enabled: 0,
+                closeOnSelect: true
+            }
+        });
+    </script>
 </x-layout>

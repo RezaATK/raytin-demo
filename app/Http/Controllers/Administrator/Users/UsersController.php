@@ -25,7 +25,7 @@ class UsersController extends Controller
 
     public function manage()
     {
-        Gate::authorize(UserPolicy::MANAGE, new User());
+        $this->authorize(UserPolicy::MANAGE, new User());
 
         return view('users.index');
     }
@@ -33,7 +33,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        Gate::authorize(UserPolicy::CREATE, new User());
+        $this->authorize(UserPolicy::CREATE, new User());
 
         $genderTypes = [0 => 'male',1 => 'female'];
         $employmentTypes = EmploymentType::all();
@@ -45,7 +45,7 @@ class UsersController extends Controller
 
     public function store(StoreUsersRequest $request)
     {
-        Gate::authorize(UserPolicy::CREATE, new User());
+        $this->authorize(UserPolicy::CREATE, new User());
 
         $validated = $request->validated();
 
@@ -67,7 +67,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        Gate::authorize(UserPolicy::EDIT, $user);
+        $this->authorize(UserPolicy::EDIT, $user);
 
         $genderTypes = [0 => 'male',1 => 'female'];
         $employmentTypes = EmploymentType::all();
@@ -82,16 +82,16 @@ class UsersController extends Controller
             5 => 'برادر',
         ];
 
-        $roles = Role::all();
-        return view('users.edit', compact('genderTypes', 'employmentTypes', 'units', 'user', 'relationshipList', 'roles'));
+        $roles_untouched = Role::all()->pluck('name');
+        $roles = implode(',', $roles_untouched->toArray());
+        $roles = $user->getRoleNames();
+        return view('users.edit', compact('genderTypes', 'employmentTypes', 'units', 'user', 'relationshipList', 'roles', 'roles_untouched'));
     }
 
 
     public function update(StoreUsersRequest $request, User $user)
     {
-        Gate::authorize(UserPolicy::EDIT, $user);
-
-//        $validated = $request->validated();
+        $this->authorize(UserPolicy::EDIT, $user);
 
         if($request->password){
             $user->update($request->except('role'));
@@ -99,7 +99,7 @@ class UsersController extends Controller
             $user->update($request->except(['role','password']));
         }
 
-        $user->syncRoles($request->role);
+        $user->syncRoles(getArrayOfTags($request->role));
 
         return to_route('users.edit', $user)->with('success', 'success');
     }

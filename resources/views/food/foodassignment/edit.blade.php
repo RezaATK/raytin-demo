@@ -7,7 +7,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('foodassignment.update', $month) }}" method="POST">
+                        <form action="{{ route('foodassignment.update', $month->monthID) }}" method="POST">
                             @csrf
                             @method('put')
                             <div class="mb-3">

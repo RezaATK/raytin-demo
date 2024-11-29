@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Administrator\Food\FoodAssignment;
 
+use App\Exports\FoodAssignmentExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Food\Food;
 use App\Models\Food\Month;
+use App\Policies\Food\FoodPolicy;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
@@ -66,7 +69,13 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+        // todo!
+        // $food = new Food();
+        // if (! Gate::check(FoodPolicy::foodAssignmentExport, $food)) {
+        //     $this->showOpUnauthorized();
+        //     return;
+        // }
+        // return (new FoodAssignmentExport())->whereIn($this->ids)->download("foods-months-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

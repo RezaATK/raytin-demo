@@ -32,7 +32,6 @@ class Manage extends BaseTableClass
 
     public function render(): View
     {
-//        $categories = Category::pluck('id', 'name')->toArray();
         $categories = collect();
 
         $query = $this->searchQuery();
@@ -69,7 +68,13 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-       return (new StoresVerifyDiscountsExport())->whereIn($this->ids)->download("StoresVerifyDiscounts-" . verta()->formatDate() . ".xlsx");
+        $discount = new StoreDiscount();
+        if (! Gate::check(StoreDiscountPolicy::VerifyDiscountsExport, $discount)) {
+            $this->showOpUnauthorized();
+            return;
+        }
+
+        return (new StoresVerifyDiscountsExport())->whereIn($this->ids)->download("StoresVerifyDiscounts-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

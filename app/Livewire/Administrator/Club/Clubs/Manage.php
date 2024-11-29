@@ -34,7 +34,6 @@ class Manage extends BaseTableClass
 
     public function render(): View
     {
-//        $categories = Category::pluck('id', 'name')->toArray();
         $categories = collect();
 
         $query = $this->searchQuery();
@@ -51,8 +50,6 @@ class Manage extends BaseTableClass
 
     public function delete(?int $id = null): void
     {
-//        Gate::authorize(ClubPolicy::DELETE, new Club());
-
         $club = new Club();
         if (! Gate::check(ClubPolicy::DELETE, $club)) {
             $this->showOpUnauthorized();
@@ -71,11 +68,10 @@ class Manage extends BaseTableClass
     public function toggle(string $column, int $id): void
     {
         $club = new Club();
-
-//        if (! Gate::check('update', $club)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
+        if (! Gate::check(ClubPolicy::EDIT, $club)) {
+            $this->showOpUnauthorized();
+           return;
+       }
 
         $this->handleToggle($column, $id, $club);
     }
@@ -83,6 +79,10 @@ class Manage extends BaseTableClass
 
     public function export()
     {
+        if (! Gate::check(ClubPolicy::EXPORT, new Club())) {
+            $this->showOpUnauthorized();
+           return;
+       }
         return (new ClubsExport())->whereIn($this->ids)->download("Clubs-" . verta()->formatDate() . ".xlsx");
     }
 
