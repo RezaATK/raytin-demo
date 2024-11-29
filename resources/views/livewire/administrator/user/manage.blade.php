@@ -4,7 +4,7 @@
     </h4>   
     <div class="card mt-4">
         <div class="card-header heading-color flex-column">
-            <div class="row">
+            <div class="row mt-3">
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-12 col-md-6 d-flex">
                         <div class="mx-2">
@@ -20,13 +20,22 @@
                             <x-administrator.delete-multiple-button />
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
-                        <form wire:submit="searchFor" class="d-flex align-items-center">
-                            <div class="me-2">
-                                <input type="text" wire:model="search" class="form-control" placeholder="جستجو"
-                                    id="search">
-                            </div>
-                        </form>
+                    <div class="row col-md-6 d-flex justify-content-end">
+                        <div class="col-sm-2 d-flex justify-content-md-end">
+                                <label for="pageSize"></label>
+                                <select wire:model.live="pageSize" class="form-select" id="pageSize">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <form wire:submit="searchFor">
+                                    <input type="text" wire:model.live.debounce="search" class="form-control" placeholder="جستجو"
+                                        id="search">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,8 +52,8 @@
             unitName: true,
             status: true,
             actions: true }">
-                <div class="row mt-2">
-                    <div class="col-sm-12 col-md-10">
+                <div class="row mt-3 mb-2">
+                    <div class="col-sm-12 col-md-10 ms-1">
                         <div class="d-flex gap-1">
                             <button class="btn btn-sm btn-secondary text-nowrap" style="max-height: fit-content;" type="button" @click="show = !show">ستون های جدول
                                 <i class="ms-2 bx" :class="show ? 'bx-chevron-right' : 'bx-chevron-left'"></i>
@@ -61,17 +70,6 @@
                                 <x-administrator.show-hide-column fieldId="status" fieldName="وضعیت" />
                                 <x-administrator.show-hide-column fieldId="actions" fieldName="اقدام" />
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-md-2 d-flex justify-content-end justify-content-md-end">
-                        <div class="mb-2">
-                            <label for="pageSize"></label>
-                            <select wire:model.live="pageSize" class="form-select" id="pageSize">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
                         </div>
                     </div>
                 </div>

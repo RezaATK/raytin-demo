@@ -1,4 +1,4 @@
-<div wire:loading.delay wire:target="searchFor, gotoPage, delete, deleteItems, pageSize" id="floatingCirclesG">
+<div wire:loading.delay wire:target="search, searchFor, gotoPage, nextPage, previousPage, delete, deleteItems, pageSize" id="floatingCirclesG">
     <div class="f_circleG" id="frotateG_01"></div>
     <div class="f_circleG" id="frotateG_02"></div>
     <div class="f_circleG" id="frotateG_03"></div>

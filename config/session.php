@@ -129,7 +129,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'oxinsteel'), '_').'_session'
+        Str::slug(env('APP_NAME', 'demo'), '_').'_session'
     ),
 
     /*

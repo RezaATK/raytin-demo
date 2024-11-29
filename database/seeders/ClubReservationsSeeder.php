@@ -18,7 +18,6 @@ class ClubReservationsSeeder extends Seeder
 
         $users = User::all()->pluck('userID')->toArray();
         $clubs = Club::all()->pluck('clubID')->toArray();
-
         for ($i = 0; $i < $count; $i++) {
             $userID = fake()->randomElement($users);
             $user = User::query()->find($userID);
@@ -41,7 +40,7 @@ class ClubReservationsSeeder extends Seeder
                 'secondayUserMobileNumber' => $user->mobileNumber,
                 'secondayUserGender' => $user->gender,
                 'trackingCode' => random_int(1111112212,9999999999),
-                'verification' => 'pending',
+                'verification' => fake()->randomElement(['pending', 'verified', 'rejected']),
                 'reserved_At' => Carbon::now()->toDateString(),
             ]);
         }

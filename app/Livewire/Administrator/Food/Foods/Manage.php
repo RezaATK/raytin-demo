@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Administrator\Food\Foods;
 
+use App\Exports\FoodsExport;
 use App\Livewire\Administrator\BaseTableClass;
 use App\Models\Food\Food;
 use App\Policies\Food\FoodPolicy;
@@ -74,20 +75,13 @@ class Manage extends BaseTableClass
 
     public function export()
     {
-//        return (new UsersExport())->whereIn($this->ids)->download('data.xlsx');
+       return (new FoodsExport())->whereIn($this->ids)->download("foods-" . verta()->formatDate() . ".xlsx");
     }
 
+    
     #[Computed]
     protected function searchQuery()
     {
-//        'storeName',
-//                'storeDetails',
-//                'storeTerms',
-//                'storeImage',
-//                'storeAddress',
-//                'storeNeighborhood',
-//                'storeCategoryID',
-//                'isActive',
         return Food::query()
             ->select(
                 'foods.foodID as foodID',

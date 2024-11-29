@@ -14,6 +14,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Renderless;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Lazy]
 class Manage extends BaseTableClass
@@ -89,6 +90,9 @@ class Manage extends BaseTableClass
     public function export()
     {
        return (new ClubsAllReservationsExport())->whereIn($this->ids)->download("ClubsAllReservations-" . verta()->formatDate() . ".xlsx");
+    //    return Excel::download(new ClubsAllReservationsExport, 'invoices.xlsx');
+    //    return (new ClubsAllReservationsExport)->download('invoices.xlsx');
+
     }
 
     #[Computed]

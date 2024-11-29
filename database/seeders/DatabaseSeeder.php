@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class, parameters: ['count' => 50]);
         // $this->call(ClubCategorySeeder::class);
         // $this->call(ClubSeeder::class, parameters: ['count' => 50]);
-        // $this->call(ClubReservationsSeeder::class, parameters: ['count' => 50]);
-        // $this->call(StoreDiscountSeeder::class, parameters: ['count' => 100_000]);
+        $this->call(ClubReservationsSeeder::class, parameters: ['count' => 15000]);
+        // $this->call(StoreDiscountSeeder::class, parameters: ['count' => 100]);
         // $this->call(PermissionSeeeder::class);
         // $this->call(RoleSeeder::class);
         // $this->call(FoodCategorySeeder::class);

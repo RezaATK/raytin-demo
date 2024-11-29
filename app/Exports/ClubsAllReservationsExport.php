@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -14,7 +15,8 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ClubsAllReservationsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class ClubsAllReservationsExport implements FromCollection
+, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -29,7 +31,7 @@ class ClubsAllReservationsExport implements FromQuery, withHeadings, shouldAutoS
         return $this;
     }
 
-    public function query()
+    public function collection()
     {
         return DB::table('club_reservation')
         ->select(
@@ -54,11 +56,45 @@ class ClubsAllReservationsExport implements FromQuery, withHeadings, shouldAutoS
         ->join('users', 'club_reservation.userID', '=', 'users.userID')
         ->join('units', 'users.unitID', '=', 'units.unitID')
         ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
-        ->orderBy('reservID')
         ->when($this->ids, function ($query) {
             $query->whereIn('reservID', $this->ids);
-        });
+        })
+        ->orderBy('reservID')
+        ->lazy();
+        // return DB::table('users')->select('userID', 'name', 'password')->orderBy('userID')->lazy();
+
     }
+
+    // public function query()
+    // {
+    //     return DB::table('club_reservation')
+    //     ->select(
+    //         'club_reservation.reservID as reservID',
+    //         'users.userID as userID',
+    //         'users.employeeID as employeeID',
+    //         'users.name as name',
+    //         'users.lastName as lastName',
+    //         'users.nationalCode as nationalCode',
+    //         'clubs.clubName as clubName',
+    //         'clubs.genderSpecific as genderSpecific',
+    //         'club_reservation.reservDate as reservDate',
+    //         'club_reservation.secondayUserRelationship as secondayUserRelationship',
+    //         'club_reservation.secondayUserName as secondaryUserName',
+    //         'club_reservation.secondayUserLastName as secondayUserLastName',
+    //         'club_reservation.secondayUserNationalCode as secondayUserNationalCode',
+    //         'club_reservation.trackingCode as trackingCode',
+    //         'club_reservation.verification as verification',
+    //         'employment_types.employmentTypeName as employmentTypeName',
+    //         'units.unitName as unitName')
+    //     ->join('clubs', 'club_reservation.clubID', '=', 'clubs.clubID')
+    //     ->join('users', 'club_reservation.userID', '=', 'users.userID')
+    //     ->join('units', 'users.unitID', '=', 'units.unitID')
+    //     ->join('employment_types', 'users.employmentTypeID', '=', 'employment_types.employmentTypeID')
+    //     ->orderBy('reservID')
+    //     ->when($this->ids, function ($query) {
+    //         $query->whereIn('reservID', $this->ids);
+    //     });
+    // }
 
     public function headings(): array
     {
