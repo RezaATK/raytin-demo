@@ -2,11 +2,16 @@
 <footer class="content-footer footer bg-footer-theme">
     <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
         <div class="mb-2 mb-md-0">
-            ©company
+            <a
+                    href="{{config('app.url')}}"
+                    target="_blank"
+                    class="footer-link me-4"
+            >©Raytin</a
+            >
         </div>
         <div>
             <a
-                    href="https://site.com/"
+                    href="{{config('app.url')}}"
                     target="_blank"
                     class="footer-link me-4"
             >Documentation</a

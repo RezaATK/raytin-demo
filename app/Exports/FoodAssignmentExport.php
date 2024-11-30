@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Food\Month;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -14,7 +15,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class FoodsExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
+class FoodAssignmentExport implements FromQuery, withHeadings, shouldAutoSize, withMapping, withEvents, WithStyles
 {
     use Exportable;
 
@@ -31,39 +32,42 @@ class FoodsExport implements FromQuery, withHeadings, shouldAutoSize, withMappin
 
     public function query()
     {
-        return DB::table('foods')
-        ->select(
-            'foods.foodID as foodID',
-            'foods.foodName as foodName',
-            'foods.foodPrice as foodPrice',
-            'foodcategory.categoryName as categoryName',
-            'foods.isActive as isActive')
-        ->join('foodcategory', 'foodcategory.foodCategoryID', '=', 'foods.foodCategoryID')
-            ->orderBy('foodID')
-            ->when($this->ids, function ($query) {
-                $query->whereIn('foodID', $this->ids);
-            });
+        return Month::query()->with('foods', function($query){
+            $query->select('foodName');
+        })
+        ->select('monthID','monthName')
+        ->when($this->ids, function($query){
+            $query->whereIn('monthID', $this->ids);
+        });
     }
 
     public function headings(): array
     {
         return [
             '#',
-            'نام غذا',
-            'هزینه',
-            'دسته بندی',
-            'وضعیت',
+            'ماه',
+            'لیست غذا',
         ];
+    }
+
+    public function RowtoString($row)
+    {
+        $str = '';
+        $char = '، ';
+        for ($i=0; $i<$count = count($row); $i++) {
+            if($i == ($count - 1)){
+                $char = '';
+            }
+            $str.= $row[$i]->foodName . $char;
+        }
+        return $str;
     }
 
     public function map($row): array
     {
         return [
-            $row->foodID,
-            $row->foodName,
-            $row->foodPrice,
-            $row->categoryName,
-            $row->isActive === 1 ? 'فعال' : 'غیرفعال',
+            $row->monthName,
+            $this->RowtoString($row->foods),
         ];
     }
 

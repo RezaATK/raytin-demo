@@ -171,7 +171,7 @@
                                             <span class="avatar-initial bg-label-primary rounded-circle"><i class="bx bx-user fs-4"></i></span>
                                         </div>
                                         <div class="card-info">
-                                            <h5 class="card-title mb-0 me-2 primary-font"></h5>
+                                            <h5 class="card-title mb-0 me-2 primary-font">{{  $usersCount->UsersCount }}</h5>
                                             <small class="text-muted">تعداد کاربران سیستم</small>
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@
                                         <div class="card-info">
                                             <h5 class="card-title mb-0 me-2 primary-font">غذای امروز شما </h5>
                                         </div>
-                                        <h5 class="my-auto"><span class="badge bg-success"></span></h5>
+                                        <h5 class="my-auto"><span class="badge bg-success">{{ $todaysFood->foodName ?? 'بدون داده' }}</span></h5>
                                     </div>
                                 </div>
                             </div>
@@ -202,58 +202,6 @@
 
 
 
-                    <div class="col-12 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="avatar">
-                                            <span class="avatar-initial bg-label-primary rounded-circle"><i class="bx bx-comment-dots fs-4"></i></span>
-                                        </div>
-                                        <div class="card-info d-flex">
-                                            <h6 class="card-title mb-0 me-2 primary-font">پیشنهادات شما</h6>
-                                            <h6 class="my-auto"><span class="badge bg-primary"></span></h6>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-3 me-5">
-                                        <div class="avatar">
-                                            <span class="avatar-initial bg-label-primary rounded-circle"><i class="bx bx-check-shield fs-4"></i></span>
-                                        </div>
-                                        <div class="card-info d-flex">
-                                            <h6 class="card-title mb-0 me-2 primary-font">امتیاز شما</h6>
-                                            <h6 class="my-auto"><span class="badge bg-primary"></span></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-        <div class="col-12 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                  <div class="avatar">
-                    <span class="avatar-initial bg-label-primary rounded-circle"><i class="bx bx-user fs-4"></i></span>
-                  </div>
-                  <div class="card-info">
-                    <h5 class="card-title mb-0 me-2 primary-font"><?php //echo $data['userSuggestionStats']->SuggestionsUsersCount ?? 'بدون داده' ?></span></h5>
-                    <small class="text-muted">پیشنهادات شما</small>
-                  </div>
-                  <div class="avatar">
-                    <span class="avatar-initial bg-label-primary rounded-circle"><i class="bx bx-user fs-4"></i></span>
-                  </div>
-                  <div class="card-info">
-                    <h5 class="card-title mb-0 me-2 primary-font"><?php //echo $data['userSuggestionStats']->allScores ?? 'بدون داده' ?></h5>
-                    <small class="text-muted">امتیاز شما</small>
-                  </div>
-                </div>
-                <div id="conversationChart"></div>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
 
                 </div>
@@ -271,13 +219,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    @if($popularClubs)
+                                        @foreach($popularClubs as $club)
+                                                <tr>
+                                                    <td>{{ $club->clubName }}</td>
+                                                    <td>{{ $club->MostReserved }}</td>
+                                                </tr>
+                                            @endforeach
+                                    @else
+                                        <tr>
+                                            <td>داده ای برای نمایش وجود ندارد</td>
+                                            <td>داده ای برای نمایش وجود ندارد</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
                     <div class="col-12 mt-4">
-                        <h5 class="p- mb-3">آخرین اخبار فولاد اکسین</h5>
+                        <h5 class="p- mb-3">آخرین اخبار فولاد سازمان</h5>
                         <div class="card">
                             <table class="table table-striped" dir="rtl">
                                 <thead>

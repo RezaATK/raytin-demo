@@ -23,8 +23,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="foodPrice" class="form-label">هزینه یک پرس از غذا</label>
-                                <input type="text" name="foodPrice" value="{{ $food->foodPrice }}" class="form-control" id="foodPrice">
+                                <label for="commaSeperated" class="form-label">هزینه یک پرس از غذا</label>
+                                <input type="text" name="foodPrice" value="{{ $food->foodPrice }}" class="form-control" id="commaSeperated">
                                 <div id="floatingInputHelp" class="form-text">به تومان - جهت محاسبه هزینه ها</div>
                                 <x-show-error field="foodPrice" />
                             </div>
@@ -48,4 +48,45 @@
             </div>
         </div>
     </div>
+    <script>
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        let cost = document.querySelector('#commaSeperated');
+
+        cost.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^0-9.]/g, '');
+            value = e.target.value;
+
+            const parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('');
+            }
+
+            if (value) {
+                const formattedValue = formatNumberWithCommas(value);
+                e.target.value = formattedValue;
+            }
+        });
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            let cost = document.querySelector('#commaSeperated');
+                cost.value = cost.value.replace(/[^0-9.]/g, '');
+                value = cost.value;
+
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+
+                if (value) {
+                    const formattedValue = formatNumberWithCommas(value);
+                    cost.value = formattedValue;
+                }
+        });
+
+
+    </script>
 </x-layout>

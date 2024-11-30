@@ -58,7 +58,7 @@
 
                                 <div class="mb-3 d-flex ">
                                     <div class="form-check form-switch mb-2 mt-3">
-                                        <input class="form-check-input" name="isActive" type="checkbox" id="isActive" @checked(old('isActive')) dir="ltr">
+                                        <input class="form-check-input" name="isActive" type="checkbox" id="isActive" @checked(old('isActive', '1')) dir="ltr">
                                         <label class="form-check-label" for="isActive">غیرفعال / فعال</label>
                                     </div>
                                     <x-show-error field="isActive"/>

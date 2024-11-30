@@ -5,7 +5,6 @@
     <td x-show="foodID" x-transition x-cloak>{{ $food->foodID }}</td>
     <td x-show="foodName" x-transition x-cloak>{{ $food->foodName }}</td>
     <td x-show="categoryName" x-transition>{{ $food->categoryName }}</td>
-    <td x-show="foodPrice" x-transition x-cloak>{{ $food->foodPrice }}</td>
     <td x-show="status" x-transition x-cloak>
         <x-administrator.checkbox-table method="status" :field="$food->isActive"
                                         :id="$food->foodID"/>
