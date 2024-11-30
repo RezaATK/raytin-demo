@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Administrator\Role;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\RoleRequest;
-use App\Models\Food\FoodCategory;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 

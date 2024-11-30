@@ -45,7 +45,6 @@
                 foodID: false,
                 foodName: true,
                 categoryName: true,
-                foodPrice: true,
                 status: true,
                 actions: true
             }">
@@ -60,7 +59,6 @@
                                 <x-administrator.show-hide-column fieldId="foodID" fieldName="شناسه" />
                                 <x-administrator.show-hide-column fieldId="foodName" fieldName="نام" />
                                 <x-administrator.show-hide-column fieldId="categoryName" fieldName="نام دسته بندی" />
-                                <x-administrator.show-hide-column fieldId="foodPrice" fieldName="هزینه" />
                                 <x-administrator.show-hide-column fieldId="status" fieldName="وضعیت" />
                                 <x-administrator.show-hide-column fieldId="actions" fieldName="اقدام" />
                             </div>
@@ -86,11 +84,6 @@
                                     x-cloak>
                                     <x-administrator.icons-sort column="نام دسته بندی" columnEn="categoryName"
                                         :$selectedColumn :$descSort />
-                                </th>
-                                <th wire:click="sort('foodPrice')" class="px-1" x-show="foodPrice" x-transition
-                                    x-cloak>
-                                    <x-administrator.icons-sort column="هزینه" columnEn="foodPrice" :$selectedColumn
-                                        :$descSort />
                                 </th>
                                 <th wire:click="sort('status')" class="px-1" x-show="status" x-transition x-cloak>
                                     <x-administrator.icons-sort column="وضعیت" columnEn="status" :$selectedColumn

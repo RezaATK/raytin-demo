@@ -12,9 +12,6 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-//use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-//use Illuminate\Database\Query\Builder as QueryBuilder;
-
 #[Lazy]
 abstract class BaseTableClass extends Component
 {
@@ -30,9 +27,9 @@ abstract class BaseTableClass extends Component
     public bool $descSort = true;
     public int $category_id;
     public array $category_IDs = [];
-    // public array $ids = [];
     public $ids = [];
     public bool $hasIds = false;
+    public string $placeholderPath = "livewire.loading";
 
 
     // protected abstract function searchQuery(): QueryBuilder|EloquentBuilder;
@@ -199,9 +196,8 @@ abstract class BaseTableClass extends Component
         $this->resetPage();
     }
 
-
-    // public function placeholder(){
-        // return  view('livewire.loading');
-    // }
+    public function placeholder(){
+        return  view($this->placeholderPath);
+    }
 
 }

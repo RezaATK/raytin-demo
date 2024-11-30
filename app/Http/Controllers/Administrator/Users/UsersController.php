@@ -38,8 +38,9 @@ class UsersController extends Controller
         $genderTypes = [0 => 'male',1 => 'female'];
         $employmentTypes = EmploymentType::all();
         $units = Unit::all();
+        $allRoles = Role::all()->pluck('name');
 
-        return view('users.create', compact('genderTypes', 'employmentTypes', 'units'));
+        return view('users.create', compact('genderTypes', 'employmentTypes', 'units', 'allRoles'));
     }
 
 
@@ -83,7 +84,6 @@ class UsersController extends Controller
         ];
 
         $roles_untouched = Role::all()->pluck('name');
-        $roles = implode(',', $roles_untouched->toArray());
         $roles = $user->getRoleNames();
         return view('users.edit', compact('genderTypes', 'employmentTypes', 'units', 'user', 'relationshipList', 'roles', 'roles_untouched'));
     }

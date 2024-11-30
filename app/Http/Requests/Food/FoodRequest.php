@@ -51,6 +51,12 @@ class FoodRequest extends FormRequest
     {
         $this->merge([
             'foodImage' => '',
+            'foodPrice' => $this->has('foodPrice') ? $this->removeCommas($this->input('foodPrice')) : null,
         ]);
+    }
+
+    private function removeCommas($intWithcommas)
+    {
+        return str_replace(',', '', $intWithcommas);
     }
 }

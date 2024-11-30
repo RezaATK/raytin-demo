@@ -1,6 +1,10 @@
 <x-layout>
     @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/libs/tagify/tagify.css') }}" />
+    @endpush
+    @push('scripts')
+        <script src="{{ asset('assets/vendor/libs/tagify/tagify.js') }}"></script>
     @endpush
     @push("footerScriptsEND")
         <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
@@ -29,7 +33,7 @@
                             <form action="{{ route('users.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-3 mt-3">
-                                    <label for="name" class="form-label">نام کاربر</label>
+                                    <label for="name" class="form-label"><span class=""></span> نام کاربر</label>
                                     <input type="text" class="form-control " value="{{ old('name') }}" name="name" >
                                     <div class="valid-feedback"></div>
                                     <div class="invalid-feedback"></div>
@@ -108,11 +112,13 @@
                                     <x-show-error field="employmentTypeID"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="defaultSelect" class="form-label">نوع کاربر</label>
-                                    <select class="form-select" name ="role_id">
-
-                                    </select>
+                                    <label for="role" class="form-label">نوع کاربر</label>
+                                    <input type="text" class="form-control" name="role" id="role" value="{{ old('roles') }}" placeholder='برای انتخاب نقش کلیک کنید'>
+                                    <x-show-error field="role"/>
                                 </div>
+
+                                
+                                
                                 <br>
                                 <button type="submit" class="btn btn-primary">افزودن</button>
                                 <a href="/users/manage" type="button" class="btn btn-primary">بازگشت</a>
@@ -122,4 +128,21 @@
                 </div>
             </div>
         </div>
+        <script>
+            const tagsEl = document.querySelector("#role");
+
+            const list = {!! $allRoles !!};
+
+            let tags = new Tagify(tagsEl, {
+                whitelist: list,
+                enforceWhitelist: true,
+                maxTags: 100,
+                dropdown: {
+                    maxItems: 100,
+                    classname: "",
+                    enabled: 0,
+                    closeOnSelect: true,
+                }
+            });
+        </script>
 </x-layout>

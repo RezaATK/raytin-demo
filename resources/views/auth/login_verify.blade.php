@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-    <title>test تایید کد پیامکی</title>
+    <title>تایید کد پیامکی</title>
 
     <meta name="description" content="">
 
@@ -86,7 +86,7 @@
                     </g>
                   </svg>
                 </span>
-                        <span class="app-brand-text demo h3 mb-0 fw-bold">test</span>
+                        {{-- <span class="app-brand-text demo h3 mb-0 fw-bold">test</span> --}}
                     </a>
                 </div>
                 <!-- /Logo -->

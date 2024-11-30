@@ -129,28 +129,11 @@
                                 </select>
                                 <x-show-error field="employmentTypeID"/>
                             </div>
-
-
-
-
-
-
                             <div class="mb-3">
                                 <label for="role" class="form-label">نوع کاربر</label>
-                                <input type="text" class="form-control" name="role" id="role" value="{{ $roles }}">
+                                <input type="text" class="form-control" name="role" id="role" value="{{ $roles }}" placeholder='برای انتخاب نقش کلیک کنید'>
                                 <x-show-error field="role"/>
                             </div>
-
-
-
-
-
-
-
-
-
-
-
                             <br>
                             <button type="submit" class="btn btn-primary">ویرایش</button>
                             <a href="/users/manage" type="button" class="btn btn-primary">بازگشت</a>
@@ -278,11 +261,12 @@
     <script>
         const tagsEl = document.querySelector("#role");
 
-        const list = {!! $roles_untouched !!};
+        const list = {!! $allRoles !!};
 
         let tags = new Tagify(tagsEl, {
             whitelist: list,
-            maxTags: 10,
+            enforceWhitelist: true,
+            maxTags: 100,
             dropdown: {
                 maxItems: 100,
                 classname: "",

@@ -33,7 +33,6 @@ class Manage extends BaseTableClass
 
     public function render(): View
     {
-//        $categories = Category::pluck('id', 'name')->toArray();
         $categories = collect();
 
         $query = $this->searchQuery();
@@ -48,34 +47,23 @@ class Manage extends BaseTableClass
 
 
     public function delete(?int $id = null): void
-    {
-    }
+    {}
 
 
 
     #[Renderless]
     public function toggle(string $column, int $id): void
-    {
-        $month = new Month();
-
-//        if (! Gate::check('update', $month)) {
-//            $this->showOpUnauthorized();
-//            return;
-//        }
-
-        $this->handleToggle($column, $id, $month);
-    }
+    {}
 
 
     public function export()
     {
-        // todo!
-        // $food = new Food();
-        // if (! Gate::check(FoodPolicy::foodAssignmentExport, $food)) {
-        //     $this->showOpUnauthorized();
-        //     return;
-        // }
-        // return (new FoodAssignmentExport())->whereIn($this->ids)->download("foods-months-" . verta()->formatDate() . ".xlsx");
+        $food = new Food();
+        if (! Gate::check(FoodPolicy::foodAssignmentExport, $food)) {
+            $this->showOpUnauthorized();
+            return;
+        }
+        return (new FoodAssignmentExport())->whereIn($this->ids)->download("foods-months-" . verta()->formatDate() . ".xlsx");
     }
 
     #[Computed]

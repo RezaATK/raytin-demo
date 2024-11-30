@@ -1,7 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
+    <div class="app-brand my-app">
         <a href="/admin" class="app-brand-link">
-            <span class="app-brand-logo demo">
+            <span class="app-brand-logo my-app">
                 <svg width="26px" height="26px" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>icon</title>
@@ -353,7 +353,10 @@
         @can('role:manage')
         <li @class([
             'menu-item',
-            'active' => isActiveRoute(['role.manage']),
+            'active' => isActiveRoute([
+                'role.manage',
+                'role.create',
+                'role.edit',]),
         ])>
             <a href="{{ route('role.manage') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-key"></i>
@@ -364,7 +367,11 @@
         @canany(['users:manage', 'users:create', 'users:edit', 'users:delete'])
         <li @class([
             'menu-item',
-            'active' => isActiveRoute(['users.manage']),
+            'active' => isActiveRoute([
+                'users.manage',
+                'users.create',
+                'users.edit',
+            ]),
         ])>
             <a href="{{ route('users.manage') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
