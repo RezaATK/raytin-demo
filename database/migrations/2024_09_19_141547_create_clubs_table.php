@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->id('clubID');
             $table->unsignedBigInteger('clubCategoryID');
-            $table->foreign('clubCategoryID')->references('clubCategoryID')->on('clubcategory')->cascadeOnDelete();
+            $table->foreign('clubCategoryID')->references('clubCategoryID')->on('clubcategory')->onUpdate('cascade');
             $table->string('clubName');
             $table->string('clubDetails');
             $table->string('clubImage')->default('')->nullable();
