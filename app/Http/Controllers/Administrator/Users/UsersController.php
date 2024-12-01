@@ -83,9 +83,9 @@ class UsersController extends Controller
             5 => 'برادر',
         ];
 
-        $roles_untouched = Role::all()->pluck('name');
+        $allRoles = Role::all()->pluck('name');
         $roles = $user->getRoleNames();
-        return view('users.edit', compact('genderTypes', 'employmentTypes', 'units', 'user', 'relationshipList', 'roles', 'roles_untouched'));
+        return view('users.edit', compact('genderTypes', 'employmentTypes', 'units', 'user', 'relationshipList', 'roles', 'allRoles'));
     }
 
 

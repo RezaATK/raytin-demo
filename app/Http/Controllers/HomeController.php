@@ -13,11 +13,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $popularClubs = ClubReservations::query()
+        $popularClubs = DB::table('club_reservation')
         ->selectRaw('count(club_reservation.clubID) as MostReserved, clubs.clubName, club_reservation.clubID')
         ->join('clubs', 'clubs.clubID', '=', 'club_reservation.clubID')
         ->where('club_reservation.verification', '=', 'verified')
-        ->groupBy('clubs.clubID')
+        ->groupBy('club_reservation.clubID')
         ->orderBy('MostReserved', 'desc')
         ->limit(5)
         ->get();
