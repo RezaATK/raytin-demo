@@ -26,43 +26,35 @@ class RecoveryPasswordRequest extends FormRequest
     {
         $rules  = [];
 
-        if($this->routeIs('password.mobile')){
+        if ($this->routeIs('password.mobile')) {
             $rules['mobileNumber'] = ['required', Rule::in(User::all()->pluck('mobileNumber')->toArray())];
 
-        if($this->routeIs('verify-reset-code-store')){
+            if ($this->routeIs('verify-reset-code-store')) {
+                $rules['code'] = ['required', Rule::in(PasswordResetToken::all()->pluck('token')->toArray())];
+            }
+        }
+
+        if ($this->routeIs('login_two')) {
+            $rules['mobileNumber'] = ['required', Rule::in(User::all()->pluck('mobileNumber')->toArray())];
+        }
+
+        if ($this->routeIs('login-with-mobile-store')) {
             $rules['code'] = ['required', Rule::in(PasswordResetToken::all()->pluck('token')->toArray())];
         }
 
-        }
-
-        if($this->routeIs('password.mobile')){
-            $rules['mobileNumber'] = ['required', Rule::in(User::all()->pluck('mobileNumber')->toArray())];
-        }
-        if($this->routeIs('login_two')){
-            $rules['mobileNumber'] = ['required', Rule::in(User::all()->pluck('mobileNumber')->toArray())];
-        }
-
-        if($this->routeIs('login-with-mobile-store')){
-            $rules['code'] = ['required', Rule::in(PasswordResetToken::all()->pluck('token')->toArray())];
-        }
-
-        if($this->routeIs('password.store')){
+        if ($this->routeIs('password.store')) {
             $rules['password'] = ['required', 'confirmed'];
         }
 
         return $rules;
-
     }
 
 
-    public function attributes():array
+    public function attributes(): array
     {
         return [
             'code' => 'تاییدیه پیامکی',
             'mobileNumber' => 'شماره موبایل'
         ];
     }
-
-
-
 }

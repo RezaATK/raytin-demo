@@ -4,7 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\User\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -16,8 +18,18 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'current_password' => ['required', 'current_password', 'max:255'],
+            'password' => ['required', Password::min(8), 'max:200', 'confirmed'],
+        ];
+    }
+
+
+    public function attributes()
+    {
+        return [
+            'current_password' => 'کلمه عبور کنونی',
+            'password' => 'کلمه عبور جدید',
+            'password_confirmation' => 'تکرار کلمه عبور جدید',
         ];
     }
 }
