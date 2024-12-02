@@ -20,23 +20,18 @@ use App\Http\Controllers\Frontend\Letter\AllLettersController;
 use App\Http\Controllers\Frontend\Store\StoreDiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login')->middleware(['guest']);
 Route::get('login', fn() => redirect('/'))->middleware(['guest']);
 Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login_password')->middleware(['guest']);
 
 
-// Route::get('/dashboard', function () {
-    // return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 

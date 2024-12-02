@@ -24,7 +24,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end animate slideIn">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -42,15 +42,9 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="">
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">پروفایل من</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <i class="bx bx-cog me-2"></i>
-                                <span class="align-middle">تنظیمات</span>
                             </a>
                         </li>
                         <li>
