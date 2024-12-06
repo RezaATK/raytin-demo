@@ -15,7 +15,7 @@ class PermissionSeeeder extends Seeder
     {
         /////////
         Permission::create([
-            'name' => 'users:manage',
+            'name' => 'user:manage',
             'name_fa' => 'صفحه مدیریت کاربران',
             'guard_name' => 'web',
             'group_name' => 'مدیریت کاربران',
@@ -23,7 +23,7 @@ class PermissionSeeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'users:create',
+            'name' => 'user:create',
             'name_fa' => 'افزودن کاربر جدید',
             'guard_name' => 'web',
             'group_name' => 'مدیریت کاربران',
@@ -31,7 +31,7 @@ class PermissionSeeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'users:edit',
+            'name' => 'user:edit',
             'name_fa' => 'ویرایش کاربران',
             'guard_name' => 'web',
             'group_name' => 'مدیریت کاربران',
@@ -39,7 +39,7 @@ class PermissionSeeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'users:delete',
+            'name' => 'user:delete',
             'name_fa' => 'حذف کاربران',
             'guard_name' => 'web',
             'group_name' => 'مدیریت کاربران',
@@ -47,7 +47,7 @@ class PermissionSeeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'users:export',
+            'name' => 'user:export',
             'name_fa' => 'برون بری کاربران',
             'guard_name' => 'web',
             'group_name' => 'مدیریت کاربران',

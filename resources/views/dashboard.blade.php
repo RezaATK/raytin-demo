@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="col-12 mt-4">
-                        <h5 class="p- mb-3">آخرین اخبار فولاد سازمان</h5>
+                        <h5 class="p- mb-3">آخرین اخبار سازمان</h5>
                         <div class="card">
                             <table class="table table-striped" dir="rtl">
                                 <thead>

@@ -364,7 +364,7 @@
             </a>
         </li>
         @endcan
-        @canany(['users:manage', 'users:create', 'users:edit', 'users:delete'])
+        @canany(['user:manage', 'user:create', 'user:edit', 'user:delete'])
         <li @class([
             'menu-item',
             'active' => isActiveRoute([

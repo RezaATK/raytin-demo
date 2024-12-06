@@ -5,6 +5,7 @@ namespace App\Livewire\Administrator\StoreCategory;
 use App\Exports\StoreCategoriesExport;
 use App\Exports\StoreCategorysExport;
 use App\Livewire\Administrator\BaseTableClass;
+use App\Models\Store\Store;
 use App\Models\Store\StoreCategory;
 use App\Policies\StoreCategory\StoreCategoryPolicy;
 use Illuminate\Contracts\View\View;
@@ -45,15 +46,23 @@ class Manage extends BaseTableClass
 
     public function delete(?int $id = null): void
     {
-        $clubCategory = new StoreCategory();
-        if (! Gate::check(StoreCategoryPolicy::DELETE, $clubCategory)) {
+        $storeCategory = new StoreCategory();
+        if (! Gate::check(StoreCategoryPolicy::DELETE, $storeCategory)) {
            $this->showOpUnauthorized();
            return;
        }
 
         $ids = $this->resolveIds($id);
 
-        $this->handleDelete($ids, $clubCategory);
+        $integrityCheck = Store::query()->whereIn('storeCategoryID', $ids);
+        if ($integrityCheck->exists()) {
+            $this->showDeleteFailed(
+                'امکان حذف این دسته بندی وجود ندارد، دسته بندی فروشگاه های مرتبط با این دسته بندی را تغییر دهید و دوباره امتحان کنید '
+                ,timer: 8000);
+            return;
+        }
+
+        $this->handleDelete($ids, $storeCategory);
 
     }
 
@@ -62,20 +71,20 @@ class Manage extends BaseTableClass
     #[Renderless]
     public function toggle(string $column, int $id): void
     {
-    //    $clubCategory = new StoreCategory();
-    //    if (! Gate::check('update', $clubCategory)) {
+    //    $storeCategory = new StoreCategory();
+    //    if (! Gate::check('update', $storeCategory)) {
         //    $this->showOpUnauthorized();
         //    return;
     //    }
 
-    //    $this->handleToggle($column, $id, $clubCategory);
+    //    $this->handleToggle($column, $id, $storeCategory);
     }
 
 
     public function export()
     {
-        $clubCategory = new StoreCategory();
-        if (! Gate::check(StoreCategoryPolicy::EXPORT, $clubCategory)) {
+        $storeCategory = new StoreCategory();
+        if (! Gate::check(StoreCategoryPolicy::EXPORT, $storeCategory)) {
            $this->showOpUnauthorized();
            return;
        }

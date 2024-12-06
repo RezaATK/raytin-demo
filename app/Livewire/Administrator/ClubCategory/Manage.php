@@ -4,6 +4,7 @@ namespace App\Livewire\Administrator\ClubCategory;
 
 use App\Exports\ClubCategoriesExport;
 use App\Livewire\Administrator\BaseTableClass;
+use App\Models\Club\Club;
 use App\Models\Club\ClubCategory;
 use App\Policies\Club\ClubPolicy;
 use App\Policies\ClubCategory\ClubCategoryPolicy;
@@ -54,6 +55,14 @@ class Manage extends BaseTableClass
 
         $ids = $this->resolveIds($id);
 
+        $integrityCheck = Club::query()->whereIn('clubCategoryID', $ids);
+        if ($integrityCheck->exists()) {
+            $this->showDeleteFailed(
+                'امکان حذف این دسته بندی وجود ندارد، دسته بندی فروشگاه های مرتبط با این دسته بندی را تغییر دهید و دوباره امتحان کنید '
+                ,timer: 8000);
+            return;
+        }
+        
         $this->handleDelete($ids, $clubCategory);
 
     }

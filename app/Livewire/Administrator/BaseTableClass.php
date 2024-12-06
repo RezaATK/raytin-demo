@@ -103,9 +103,9 @@ abstract class BaseTableClass extends Component
     }
 
 
-    protected function showDeleteFailed(): void
+    protected function showDeleteFailed($title = Toast::FailedDelete, $icon = Toast::RedIcon, $timer = Toast::RedIcon): void
     {
-        $this->toast(Toast::FailedDelete, Toast::RedIcon, Toast::RedTimer);
+        $this->toast($title, $icon, $timer);
     }
 
     protected function showDeleteSuccess(): void
